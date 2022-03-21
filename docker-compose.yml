@@ -2,7 +2,7 @@ version: "3.3"
 services:
     db:
         image: postgres:14.1-alpine
-        container_name: postgres-tekkadan
+        container_name: postgres-db
         ports:
           - "3306:5432"
         restart: always
