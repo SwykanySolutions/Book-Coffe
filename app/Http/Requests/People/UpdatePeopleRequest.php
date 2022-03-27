@@ -29,6 +29,7 @@ class UpdatePeopleRequest extends FormRequest
             'birth' => 'date',
             'gender' => 'string',
             'photo' => 'image',
+            'background_photo' => 'image',
             'about' => 'string|max:300|min:20',
             'twitter' => 'string',
             'facebook' => 'string',

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->id();
             $table->string('photo')->nullable();
+            $table->string('background_photo')->nullable();
             $table->string('name')->unique();
             $table->date('birth')->nullable();
             $table->string('gender')->nullable();

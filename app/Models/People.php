@@ -9,7 +9,7 @@ class People extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'photo', 'birth', 'gender', 'about', 'twitter', 'facebook', 'instagram', 'anilist', 'myanimelist', 'youtube', 'website'];
+    protected $fillable = ['name', 'photo', 'background_photo','birth', 'gender', 'about', 'twitter', 'facebook', 'instagram', 'anilist', 'myanimelist', 'youtube', 'website'];
 
     public function getPhotoAttribute()
     {
