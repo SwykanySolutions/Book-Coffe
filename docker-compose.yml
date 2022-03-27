@@ -1,12 +1,38 @@
 version: "3.3"
+
 services:
+
+    app:
+        container_name: api-laravel
+        ports:
+            - "8181:8181"
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: api/laravel-app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - db
+        environment:
+            DB_HOST: db
+            DB_PORT: 5432
+            DB_DATABASE: ${DB_DATABASE}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            DB_CONNECTION: ${DB_CONNECTION}
+
     db:
         image: postgres:14.1-alpine
         container_name: postgres-db
         ports:
-          - "3306:5432"
-        restart: always
+          - "5432:5432"
+        restart: unless-stopped
         environment:
             POSTGRES_USER: ${DB_USERNAME}
             POSTGRES_PASSWORD: ${DB_PASSWORD}
             POSTGRES_DB: ${DB_DATABASE}
+        volumes:
+            - ./.docker/postgres/dbdata:/var/lib/postgres
