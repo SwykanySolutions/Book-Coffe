@@ -22,4 +22,6 @@ RUN composer install
 
 RUN php artisan key:generate
 
-CMD php artisan serve --host=0.0.0.0 --port=8181
+RUN php artisan storage:link
+
+RUN chown -R www-data:www-data /var/www
