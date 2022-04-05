@@ -13,7 +13,12 @@ class People extends Model
 
     public function getPhotoAttribute()
     {
-        return !$this->attributes['photo'] ? asset("imgs/profile.avif") : $this->attributes['photo'];
+        return !$this->attributes['photo'] ? asset("imgs/profile.avif") : asset("storage/" . $this->attributes['photo']);
+    }
+
+    public function getBackgroundPhotoAttribute()
+    {
+        return !$this->attributes['background_photo'] ? asset("imgs/profile.avif") : asset("storage/" . $this->attributes['background_photo']);
     }
 
     public function getGenderAttribute()
