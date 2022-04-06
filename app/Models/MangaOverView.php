@@ -20,4 +20,14 @@ class MangaOverView extends Model
     {
         return $this->belongsToMany(People::class);
     }
+
+    public function statuses()
+    {
+        return $this->hasOne(Status::class);
+    }
+
+    public function formats()
+    {
+        return $this->hasOne(Format::class);
+    }
 }
