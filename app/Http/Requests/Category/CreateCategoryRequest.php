@@ -25,7 +25,7 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:32|min:2|string|unique:App\Models\People,name',
+            'name' => 'required|max:32|min:2|string|unique:App\Models\Category,name',
         ];
     }
 }
