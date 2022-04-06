@@ -43,6 +43,12 @@ return new class extends Migration
             $table->boolean('create_category')->default(false);
             $table->boolean('update_category')->default(false);
             $table->boolean('delete_category')->default(false);
+            $table->boolean('create_status')->default(false);
+            $table->boolean('update_status')->default(false);
+            $table->boolean('delete_status')->default(false);
+            $table->boolean('create_format')->default(false);
+            $table->boolean('update_format')->default(false);
+            $table->boolean('delete_format')->default(false);
             $table->boolean('ban_user')->default(false);
             $table->boolean('unban_user')->default(false);
             $table->boolean('manager_permisions')->default(false);
