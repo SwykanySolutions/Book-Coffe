@@ -30,4 +30,9 @@ class People extends Model
     {
         return !$this->attributes['about'] ? 'Nada' : $this->attributes['about'];
     }
+
+    public function manga_over_views()
+    {
+        return $this->belongsToMany(MangaOverView::class);
+    }
 }

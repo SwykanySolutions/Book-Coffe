@@ -15,4 +15,9 @@ class MangaOverView extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function people()
+    {
+        return $this->belongsToMany(People::class);
+    }
 }
