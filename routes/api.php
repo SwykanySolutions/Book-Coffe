@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\AuthController;
 use \App\Http\Controllers\PeopleController;
+use \App\Http\Controllers\MangaOverViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,11 @@ Route::prefix('/people')->group(function(){
 });
 
 Route::apiResource('category', \App\Http\Controllers\CategoryController::class)->except(['show','index']);
+
+Route::apiResource('status', \App\Http\Controllers\StatusController::class)->except(['show','index']);
+
+Route::apiResource('format', \App\Http\Controllers\FormatController::class)->except(['show','index']);
+
+Route::prefix('/manga')->group(function(){
+    Route::post('/', [MangaOverViewController::class, 'store']);
+});
