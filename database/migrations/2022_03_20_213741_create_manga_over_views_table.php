@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('background_photo')->nullable();
             $table->string('name')->unique();
             $table->string('synopsis')->nullable();
-            $table->integer('format')->nullable();
-            $table->integer('status')->nullable();
             $table->integer('views')->default(0);
             $table->double('score')->default(0);
             $table->timestamps();
