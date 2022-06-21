@@ -13,6 +13,6 @@ class Format extends Model
 
     public function manga_over_views()
     {
-        return $this->belongsToMany(MangaOverView::class);
+        return $this->hasMany(MangaOverView::class);
     }
 }
