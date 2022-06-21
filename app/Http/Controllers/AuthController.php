@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\AuthUserRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    private $user;
+    protected $user;
 
-    public function __construct(User $user)
+    public function __construct(AuthService $user)
     {
         $this->user = $user;
         $this->middleware('auth:sanctum')->only('index', 'destroy_all', 'destroy');
@@ -24,30 +22,16 @@ class AuthController extends Controller
 
     public function store(AuthUserRequest $request)
     {
-        $user = $this->user->where('email', $request->email)->first();
-        if(!$user)
-        {
-            return abort(404);
-        }
-        if(Hash::check($request->password, $user->password))
-        {
-            $token = $user->createToken($request->header('User-Agent'));
-            $user['token'] = $token->plainTextToken;
-            return $user;
-        }
-        else
-        {
-            return abort(403,'Unauthorized action.');
-        }
+        return $this->user->login($request);
     }
 
     public function destroy($id)
     {
-        auth()->user()->tokens()->where('id', $id)->delete();
+        $this->user->logOut($id);
     }
 
     public function destroy_all()
     {
-        auth()->user()->currentAccessToken()->delete();
+        $this->user->logOutAll();
     }
 }
