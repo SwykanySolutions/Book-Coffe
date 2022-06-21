@@ -16,6 +16,10 @@ class MangaOverView extends Model
         return !$this->attributes['photo'] ? asset("imgs/profile.avif") : asset("storage/" . $this->attributes['photo']);
     }
 
+    public function getBackgroundPhotoAttribute()
+    {
+        return !$this->attributes['background_photo'] ? asset("imgs/profile.avif") : asset("storage/" . $this->attributes['background_photo']);
+    }
     public function categories()
     {
         return $this->belongsToMany(Category::class);
