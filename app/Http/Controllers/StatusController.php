@@ -8,17 +8,17 @@ use App\Services\StatusService;
 
 class StatusController extends Controller
 {
-    private $status;
+    private $statusService;
 
-    public function __construct(StatusService $status)
+    public function __construct(StatusService $statusService)
     {
-        $this->status = $status;
+        $this->statusService = $statusService;
         $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
     }
 
     public function store(CreateStatusRequest $request)
     {
-        return $this->status->createStatus($request->all());
+        return $this->statusService->createStatus($request->all());
     }
 
     public function show($id)
@@ -28,11 +28,11 @@ class StatusController extends Controller
 
     public function update(UpdateStatusRequest $request, $id)
     {
-        return $this->status->updateStatus($id, $request->all());
+        return $this->statusService->updateStatus($id, $request->all());
     }
 
     public function destroy($id)
     {
-        $this->status->deleteStatus($id);
+        $this->statusService->deleteStatus($id);
     }
 }

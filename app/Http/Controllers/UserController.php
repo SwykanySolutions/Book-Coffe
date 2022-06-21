@@ -9,41 +9,41 @@ use App\Services\UserService;
 class UserController extends Controller
 {
 
-    private $user;
+    private $userService;
 
-    public function __construct(UserService $user)
+    public function __construct(UserService $userService)
     {
-        $this->user = $user;
+        $this->userService = $userService;
         $this->middleware('auth:sanctum')->only('update', 'destroy', 'me');
     }
 
     public function index()
     {
-        return $this->user->getAllUsers();
+        return $this->userService->getAllUsers();
     }
 
     public function store(CreateUserRequest $request)
     {
-        return $this->user->createUser($request->all(), $request->header('User-Agent'));
+        return $this->userService->createUser($request->all(), $request->header('User-Agent'));
     }
 
     public function show($name, $tag)
     {
-        return $this->user->getUserbyTag($name, $tag);
+        return $this->userService->getUserbyTag($name, $tag);
     }
 
     public function me()
     {
-        return $this->user->getUserbyAuth();
+        return $this->userService->getUserbyAuth();
     }
 
     public function update(UpdateUserRequest $request)
     {
-        return $this->user->updateUser($request);
+        return $this->userService->updateUser($request);
     }
 
     public function destroy()
     {
-        $this->user->deleteUser();
+        $this->userService->deleteUser();
     }
 }

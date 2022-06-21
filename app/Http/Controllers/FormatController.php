@@ -8,26 +8,26 @@ use App\Services\FormatService;
 
 class FormatController extends Controller
 {
-    private $format;
+    private $formatService;
 
-    public function __construct(FormatService $format)
+    public function __construct(FormatService $formatService)
     {
-        $this->format = $format;
+        $this->formatService = $formatService;
         $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
     }
 
     public function store(CreateFormatRequest $request)
     {
-        return $this->format->createFormat($request->all());
+        return $this->formatService->createFormat($request->all());
     }
 
     public function update(UpdateFormatRequest $request, $id)
     {
-        return $this->format->updateFormat($request->all(), $id);
+        return $this->formatService->updateFormat($request->all(), $id);
     }
 
     public function destroy($id)
     {
-        return $this->format->deleteFormat($id);
+        return $this->formatService->deleteFormat($id);
     }
 }

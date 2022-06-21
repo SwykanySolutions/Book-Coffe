@@ -8,31 +8,31 @@ use App\Http\Requests\Manga\CreateMangaChapterRequest;
 class MangaChapterController extends Controller
 {
 
-    protected $chapterManga;
+    protected $mangaChapterService;
 
-    public function __construct(MangaChapterService $chapterManga)
+    public function __construct(MangaChapterService $mangaChapterService)
     {
-        $this->chapterManga = $chapterManga;
+        $this->mangaChapterService = $mangaChapterService;
         $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
     }
 
     public function index($id)
     {
-        return $this->chapterManga->getAllChapeterbyMangaId($id);
+        return $this->mangaChapterService->getAllChapeterbyMangaId($id);
     }
 
     public function store(CreateMangaChapterRequest $request)
     {
-        return $this->chapterManga->createChapterManga($request);
+        return $this->mangaChapterService->createChapterManga($request);
     }
 
     public function show($id)
     {
-        return $this->chapterManga->getChapterPages($id);
+        return $this->mangaChapterService->getChapterPages($id);
     }
 
     public function destroy($id)
     {
-        return $this->chapterManga->deleteChapter($id);
+        return $this->mangaChapterService->deleteChapter($id);
     }
 }

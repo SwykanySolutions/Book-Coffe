@@ -7,31 +7,31 @@ use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    protected $user;
+    protected $authService;
 
-    public function __construct(AuthService $user)
+    public function __construct(AuthService $authService)
     {
-        $this->user = $user;
+        $this->authService = $authService;
         $this->middleware('auth:sanctum')->only('index', 'destroy_all', 'destroy');
     }
 
     public function index()
     {
-        return auth()->user()->tokens;
+        return $this->authService->getAllAuth();
     }
 
     public function store(AuthUserRequest $request)
     {
-        return $this->user->login($request);
+        return $this->authService->login($request);
     }
 
     public function destroy($id)
     {
-        $this->user->logOut($id);
+        $this->authService->logOut($id);
     }
 
     public function destroy_all()
     {
-        $this->user->logOutAll();
+        $this->authService->logOutAll();
     }
 }

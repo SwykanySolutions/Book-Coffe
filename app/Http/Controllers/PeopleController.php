@@ -8,11 +8,11 @@ use App\Services\PeopleService;
 
 class PeopleController extends Controller
 {
-    private $people;
+    private $peopleService;
 
-    public function __construct(PeopleService $people)
+    public function __construct(PeopleService $peopleService)
     {
-        $this->people = $people;
+        $this->peopleService = $peopleService;
         $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
     }
 
@@ -23,21 +23,21 @@ class PeopleController extends Controller
 
     public function store(PeopleRequest $request)
     {
-        return $this->people->createPeople($request);
+        return $this->peopleService->createPeople($request);
     }
 
     public function show($id)
     {
-        return $this->people->getPeoplebyId($id);
+        return $this->peopleService->getPeoplebyId($id);
     }
 
     public function update(UpdatePeopleRequest $request, $id)
     {
-        return $this->people->updatePeople($id, $request);
+        return $this->peopleService->updatePeople($id, $request);
     }
 
     public function destroy($id)
     {
-        $this->people->deletePeople($id);
+        $this->peopleService->deletePeople($id);
     }
 }

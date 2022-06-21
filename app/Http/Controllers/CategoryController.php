@@ -9,26 +9,26 @@ use App\Services\CategoryService;
 class CategoryController extends Controller
 {
 
-    private $category;
+    private $categoryService;
 
-    public function __construct(CategoryService $category)
+    public function __construct(CategoryService $categoryService)
     {
-        $this->category = $category;
+        $this->categoryService = $categoryService;
         $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
     }
 
     public function store(CreateCategoryRequest $request)
     {
-        return $this->category->creteCategory($request->all());
+        return $this->categoryService->creteCategory($request->all());
     }
 
     public function update(UpdateCategoryRequest $request, $id)
     {
-        return $this->category->updateCategory($request->all(), $id);
+        return $this->categoryService->updateCategory($request->all(), $id);
     }
 
     public function destroy($id)
     {
-        return $this->category->deleteCategory($id);
+        return $this->categoryService->deleteCategory($id);
     }
 }

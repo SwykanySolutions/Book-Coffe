@@ -9,20 +9,20 @@ use App\Services\AdminUserService;
 
 class UserController extends Controller
 {
-    private $user;
+    private $userService;
 
-    public function __construct(AdminUserService $user)
+    public function __construct(AdminUserService $userService)
     {
-        $this->user = $user;
+        $this->userService = $userService;
     }
 
     public function update_permission(PermissionUserRequest $request, $id)
     {
-        return $this->user->update_permission($request->all(), $id);
+        return $this->userService->update_permission($request->all(), $id);
     }
 
     public function manager_permisions(ManagerPermissionRequest $request, $id)
     {
-        return $this->user->update_manager_permision($request, $id);
+        return $this->userService->update_manager_permision($request, $id);
     }
 }
