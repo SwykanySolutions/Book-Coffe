@@ -64,7 +64,12 @@ Route::controller(MangaOverViewController::class)->prefix('/manga')->group(funct
     Route::get('/{id}', 'show');
 });
 
-Route::apiResource('format', \App\Http\Controllers\FormatController::class)->except(['show','index']);
+Route::controller(MangaChapterController::class)->prefix('/chapter')->group(function(){
+    Route::get('/manga/{id}', 'index');
+    Route::get('/{id}', 'show');
+    Route::post('/', 'store');
+    Route::delete('/{id}', 'destroy');
+});
 
 Route::prefix('/manga')->group(function(){
     Route::post('/', [MangaOverViewController::class, 'store']);
