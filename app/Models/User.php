@@ -23,12 +23,12 @@ class User extends Authenticatable
 
     public function getProfilePhotoAttribute()
     {
-        return !$this->attributes['profile_photo'] ? asset("imgs/profile.avif") : asset("storage/" . $this->attributes['profile_photo']);
+        return !$this->attributes['profile_photo'] ? "imgs/profile.jpg" : "storage/" . $this->attributes['profile_photo'];
     }
 
     public function getBackgroundPhotoAttribute()
     {
-        return !$this->attributes['background_photo'] ? asset("imgs/background_photo.avif") : asset("storage/" . $this->attributes['background_photo']);
+        return !$this->attributes['background_photo'] ? "imgs/background_profile.jpg" : "storage/" . $this->attributes['background_photo'];
     }
 
     public function setPasswordAttribute($value)
