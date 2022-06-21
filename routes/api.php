@@ -1,6 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FormatController;
+use App\Http\Controllers\MangaOverViewController;
+use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\AuthController;
@@ -18,40 +24,43 @@ use \App\Http\Controllers\MangaOverViewController;
 |
 */
 
-//Route::apiResource('auth', \App\Http\Controllers\AuthController::class);
-
-//Route::apiResource('user', \App\Http\Controllers\UserController::class);
-
-Route::prefix('/user')->group(function(){
-    Route::get('/', [UserController::class,'index']);
-    Route::get('/{name}/{tag}', [UserController::class,'show']);
-    Route::post('/', [UserController::class,'store']);
-    Route::post('/update', [UserController::class,'update']);
-    Route::delete('/', [UserController::class,'destroy']);
+Route::controller(UserController::class)->prefix('/user')->group(function(){
+    Route::get('/', 'index');
+    Route::get('/{name}/{tag}', 'show');
+    Route::get('/me', 'me');
+    Route::post('/', 'store');
+    Route::post('/update', 'update');
+    Route::delete('/', 'destroy');
 });
 
-Route::prefix('/auth')->group(function(){
-    Route::get('/', [AuthController::class,'index']);
-    Route::post('/', [AuthController::class,'store']);
-    Route::delete('/', [AuthController::class,'destroy_all']);
-    Route::delete('/{id}', [AuthController::class,'destroy']);
+Route::controller(AuthController::class)->prefix('/auth')->group(function(){
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::delete('/', 'destroy_all');
+    Route::delete('/{id}', 'destroy');
 });
 
-Route::middleware('auth:sanctum')->prefix('/admin')->group(function(){
-    Route::post('/user/{id}', [\App\Http\Controllers\Admin\UserController::class, 'update_permission']);
-    Route::post('/managerpermisions/{id}', [\App\Http\Controllers\Admin\UserController::class, 'manager_permisions']);
+Route::controller(\App\Http\Controllers\Admin\UserController::class)->middleware('auth:sanctum')->prefix('/admin')->group(function(){
+    Route::post('/user/{id}', 'update_permission');
+    Route::post('/managerpermisions/{id}', 'manager_permisions');
 });
 
-Route::prefix('/people')->group(function(){
-    Route::post('/', [PeopleController::class, 'store']);
-    Route::get('/{id}', [PeopleController::class, 'show']);
-    Route::delete('/{id}', [PeopleController::class, 'destroy']);
-    Route::post('/update/{id}', [PeopleController::class, 'update']);
+Route::controller(PeopleController::class)->prefix('/people')->group(function(){
+    Route::post('/', 'store');
+    Route::get('/{id}', 'show');
+    Route::delete('/{id}', 'destroy');
+    Route::post('/update/{id}', 'update');
 });
 
-Route::apiResource('category', \App\Http\Controllers\CategoryController::class)->except(['show','index']);
+Route::apiResource('category', CategoryController::class)->except(['show','index']);
 
-Route::apiResource('status', \App\Http\Controllers\StatusController::class)->except(['show','index']);
+Route::apiResource('status', StatusController::class)->except(['show','index']);
+
+Route::apiResource('format', FormatController::class)->except(['show','index']);
+
+Route::controller(MangaOverViewController::class)->prefix('/manga')->group(function(){
+    Route::post('/', 'store');
+});
 
 Route::apiResource('format', \App\Http\Controllers\FormatController::class)->except(['show','index']);
 
