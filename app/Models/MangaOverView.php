@@ -11,6 +11,11 @@ class MangaOverView extends Model
 
     protected $fillable = ['photo', 'background_photo', 'name', 'synopsis', 'format', 'status', 'views', 'score'];
 
+    public function getPhotoAttribute()
+    {
+        return !$this->attributes['photo'] ? asset("imgs/profile.avif") : asset("storage/" . $this->attributes['photo']);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);
