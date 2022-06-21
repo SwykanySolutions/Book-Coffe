@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('formats', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('manga_over_view_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
