@@ -44,4 +44,9 @@ class User extends Authenticatable
             $this->attributes['name'] = $value;
         }
     }
+
+    public function chapter_mangas()
+    {
+        return $this->hasMany(ChapterManga::class);
+    }
 }
