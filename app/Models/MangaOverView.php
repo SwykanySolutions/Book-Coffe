@@ -21,13 +21,18 @@ class MangaOverView extends Model
         return $this->belongsToMany(People::class);
     }
 
+    public function chapter_mangas()
+    {
+        return $this->hasMany(ChapterManga::class);
+    }
+
     public function statuses()
     {
-        return $this->hasOne(Status::class);
+        return $this->belongsTo(Status::class);
     }
 
     public function formats()
     {
-        return $this->hasOne(Format::class);
+        return $this->belongsTo(Format::class);
     }
 }
