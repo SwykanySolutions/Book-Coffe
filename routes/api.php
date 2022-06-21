@@ -59,6 +59,7 @@ Route::apiResource('status', StatusController::class)->except(['show','index']);
 Route::apiResource('format', FormatController::class)->except(['show','index']);
 
 Route::controller(MangaOverViewController::class)->prefix('/manga')->group(function(){
+    Route::get('/', 'index');
     Route::post('/', 'store');
 });
 
