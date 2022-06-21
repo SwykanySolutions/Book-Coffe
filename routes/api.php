@@ -3,15 +3,13 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FormatController;
+use App\Http\Controllers\MangaChapterController;
 use App\Http\Controllers\MangaOverViewController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\UserController;
-use \App\Http\Controllers\AuthController;
-use \App\Http\Controllers\PeopleController;
-use \App\Http\Controllers\MangaOverViewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +69,6 @@ Route::controller(MangaChapterController::class)->prefix('/chapter')->group(func
     Route::delete('/{id}', 'destroy');
 });
 
-Route::prefix('/manga')->group(function(){
-    Route::post('/', [MangaOverViewController::class, 'store']);
+Route::controller(SearchController::class)->prefix('/search')->group(function(){
+    Route::get('/{query}', 'show');
 });
