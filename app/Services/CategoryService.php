@@ -16,7 +16,7 @@ class CategoryService
 
     public function creteCategory(array $request)
     {
-        return $this->creteCategory($request);
+        return $this->categoryRepository->creteCategory($request);
     }
 
     public function updateCategory(array $request, int $id)
