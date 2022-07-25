@@ -28,11 +28,11 @@ class CreateMangaOverViewRequest extends FormRequest
             "name" => "required|string|max:32|min:2|unique:App\Models\MangaOverView,name",
             "photo" => "image",
             "background_photo" => "image",
-            "synopsis" => "string|max:300|min:20",
+            "synopsis" => "string|max:500|min:20",
             "categories" => "required|array",
             "staffs" => "required|array",
             "format" => "required|string",
-            "status" => "required|string"
+            "status" => "required|string",
         ];
     }
 }
