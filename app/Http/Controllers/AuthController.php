@@ -20,6 +20,11 @@ class AuthController extends Controller
         return $this->authService->getAllAuth();
     }
 
+    public function storeToken(AuthUserRequest $request)
+    {
+        return $this->authService->loginToken($request);
+    }
+
     public function store(AuthUserRequest $request)
     {
         return $this->authService->login($request);
