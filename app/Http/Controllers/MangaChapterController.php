@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MangaChapterService;
 use App\Http\Requests\Manga\CreateMangaChapterRequest;
+use App\Services\MangaChapterService;
 
 class MangaChapterController extends Controller
 {
@@ -19,6 +19,16 @@ class MangaChapterController extends Controller
     public function index($id)
     {
         return $this->mangaChapterService->getAllChapeterbyMangaId($id);
+    }
+
+    public function indexAll($id)
+    {
+        return $this->mangaChapterService->getAllChapeterbyMangaIdNoPaginate($id);
+    }
+
+    public function indexIds()
+    {
+        return $this->mangaChapterService->getAllIds();
     }
 
     public function store(CreateMangaChapterRequest $request)
