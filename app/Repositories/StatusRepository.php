@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\StatusRepositoryInterface;
 use App\Models\Status;
+use App\Repositories\Contracts\StatusRepositoryInterface;
 
 class StatusRepository implements StatusRepositoryInterface
 {
@@ -13,6 +13,11 @@ class StatusRepository implements StatusRepositoryInterface
     public function __construct(Status $status)
     {
         return $this->status = $status;
+    }
+
+    public function getStatusbyId(int $id)
+    {
+        return $this->status->find($id);
     }
 
     public function createStatus(array $request)
@@ -30,7 +35,10 @@ class StatusRepository implements StatusRepositoryInterface
     public function deleteStatus(int $id)
     {
         $status = $this->status->find($id);
-        if(!$status) return abort(404);
+        if (!$status) {
+            return abort(404);
+        }
+
         $status->delete();
     }
 
