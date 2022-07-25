@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\MangaChapterRepositoryInterface;
 use App\Models\ChapterManga;
 use App\Models\MangaPage;
+use App\Repositories\Contracts\MangaChapterRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class MangaChapterRepository implements MangaChapterRepositoryInterface
 {
@@ -20,8 +21,18 @@ class MangaChapterRepository implements MangaChapterRepositoryInterface
 
     public function getAllChapeterbyMangaId(int $id)
     {
-        $chapterManga = $this->chapterManga->where('manga_over_view_id', '=', $id)->first();
+        $chapterManga = $this->chapterManga->where('manga_over_view_id', '=', $id);
         return $chapterManga->paginate(10);
+    }
+
+    public function getAllChapeterbyMangaIdNoPaginate(int $id)
+    {
+        return $this->chapterManga->where('manga_over_view_id', '=', $id)->get();
+    }
+
+    public function getAllChapeterIds()
+    {
+        return DB::select('select id from chapter_mangas');
     }
 
     public function createChapter(array $request, int $userId, int $mangaOverViewId)
