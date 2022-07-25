@@ -11,6 +11,11 @@ class ChapterManga extends Model
 
     protected $fillable = ['title', 'chapter'];
 
+    public function getTitleAttribute()
+    {
+        return !$this->attributes['title'] ? "Sem Titulo" : $this->attributes['title'];
+    }
+
     public function users()
     {
         return $this->hasOne(User::class);
