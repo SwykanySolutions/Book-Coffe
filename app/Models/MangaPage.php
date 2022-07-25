@@ -11,6 +11,11 @@ class MangaPage extends Model
 
     protected $fillable = ['page'];
 
+    public function getPageAttribute()
+    {
+        return asset("storage/" . $this->attributes['page']);
+    }
+
     public function chapter_mangas()
     {
         return $this->hasOne(ChapterManga::class);
