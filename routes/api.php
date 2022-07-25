@@ -6,9 +6,9 @@ use App\Http\Controllers\FormatController;
 use App\Http\Controllers\MangaChapterController;
 use App\Http\Controllers\MangaOverViewController;
 use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
-Route::controller(UserController::class)->prefix('/user')->group(function(){
+Route::controller(UserController::class)->prefix('/user')->group(function () {
     Route::get('/', 'index');
     Route::get('/{name}/{tag}', 'show');
     Route::get('/me', 'me');
@@ -31,44 +31,47 @@ Route::controller(UserController::class)->prefix('/user')->group(function(){
     Route::delete('/', 'destroy');
 });
 
-Route::controller(AuthController::class)->prefix('/auth')->group(function(){
+Route::controller(AuthController::class)->prefix('/auth/token')->group(function () {
     Route::get('/', 'index');
-    Route::post('/', 'store');
+    Route::post('/', 'storeToken');
     Route::delete('/', 'destroy_all');
     Route::delete('/{id}', 'destroy');
 });
 
-Route::controller(\App\Http\Controllers\Admin\UserController::class)->middleware('auth:sanctum')->prefix('/admin')->group(function(){
+Route::controller(\App\Http\Controllers\Admin\UserController::class)->middleware('auth:sanctum')->prefix('/admin')->group(function () {
     Route::post('/user/{id}', 'update_permission');
     Route::post('/managerpermisions/{id}', 'manager_permisions');
 });
 
-Route::controller(PeopleController::class)->prefix('/people')->group(function(){
+Route::controller(PeopleController::class)->prefix('/people')->group(function () {
     Route::post('/', 'store');
     Route::get('/{id}', 'show');
     Route::delete('/{id}', 'destroy');
     Route::post('/update/{id}', 'update');
 });
 
-Route::apiResource('category', CategoryController::class)->except(['show','index']);
+Route::apiResource('category', CategoryController::class)->except(['show', 'index']);
 
-Route::apiResource('status', StatusController::class)->except(['show','index']);
+Route::apiResource('status', StatusController::class)->except(['show', 'index']);
 
-Route::apiResource('format', FormatController::class)->except(['show','index']);
+Route::apiResource('format', FormatController::class)->except(['show', 'index']);
 
-Route::controller(MangaOverViewController::class)->prefix('/manga')->group(function(){
+Route::controller(MangaOverViewController::class)->prefix('/manga')->group(function () {
     Route::get('/', 'index');
+    Route::get('/ids', 'indexIds');
     Route::post('/', 'store');
     Route::get('/{id}', 'show');
 });
 
-Route::controller(MangaChapterController::class)->prefix('/chapter')->group(function(){
+Route::controller(MangaChapterController::class)->prefix('/chapter')->group(function () {
     Route::get('/manga/{id}', 'index');
+    Route::get('/manga/all/{id}', 'indexAll');
+    Route::get('/ids', 'indexIds');
     Route::get('/{id}', 'show');
     Route::post('/', 'store');
     Route::delete('/{id}', 'destroy');
 });
 
-Route::controller(SearchController::class)->prefix('/search')->group(function(){
+Route::controller(SearchController::class)->prefix('/search')->group(function () {
     Route::get('/{query}', 'show');
 });
