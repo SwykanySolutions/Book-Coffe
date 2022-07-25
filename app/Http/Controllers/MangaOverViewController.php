@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MangaOverViewService;
 use App\Http\Requests\Manga\CreateMangaOverViewRequest;
+use App\Services\MangaOverViewService;
 
 class MangaOverViewController extends Controller
 {
@@ -19,6 +19,11 @@ class MangaOverViewController extends Controller
     public function index()
     {
         return $this->mangaOverViewService->getAllManga();
+    }
+
+    public function indexIds()
+    {
+        return $this->mangaOverViewService->getAllMangaIds();
     }
 
     public function store(CreateMangaOverViewRequest $request)

@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\MangaOverViewRepositoryInterface;
-use App\Models\MangaOverView;
 use App\Models\Format;
+use App\Models\MangaOverView;
 use App\Models\Status;
+use App\Repositories\Contracts\MangaOverViewRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class MangaOverViewRepository implements MangaOverViewRepositoryInterface
 {
@@ -26,6 +27,11 @@ class MangaOverViewRepository implements MangaOverViewRepositoryInterface
         return $this->manga->paginate(10);
     }
 
+    public function getAllMangaIds()
+    {
+        return DB::select('select id from manga_over_views');
+    }
+
     public function createManga(array $request, int $status, int $format, array $categories, array $staffs)
     {
         $manga = $this->manga->create($request);
@@ -40,8 +46,6 @@ class MangaOverViewRepository implements MangaOverViewRepositoryInterface
     public function getMangabyId(int $id)
     {
         $manga = $this->manga->with('categories', 'people')->find($id);
-        $manga->format = $this->format->find($manga->format_id);
-        $manga->status = $this->status->find($manga->status_id);
         return $manga;
     }
 
