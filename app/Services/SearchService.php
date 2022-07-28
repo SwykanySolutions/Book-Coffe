@@ -19,4 +19,9 @@ class SearchService
         $response['users'] = $this->SearchRepository->searchUser($query);
         return $response;
     }
+
+    public function searchManga(string $query)
+    {
+        return $this->SearchRepository->searchManga($query);
+    }
 }

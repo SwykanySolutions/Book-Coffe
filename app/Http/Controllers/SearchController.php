@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\SearchService;
 
 class SearchController extends Controller
@@ -14,8 +13,13 @@ class SearchController extends Controller
         $this->SearchService = $SearchService;
     }
 
-    public function show($query)
+    public function showMangaAndUser($query)
     {
         return $this->SearchService->search($query);
+    }
+
+    public function showManga($query)
+    {
+        return $this->SearchService->searchManga($query);
     }
 }
