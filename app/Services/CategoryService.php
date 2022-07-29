@@ -14,6 +14,11 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function getCategoryByid(int $id)
+    {
+        return $this->categoryRepository->getCategoryByid($id);
+    }
+
     public function creteCategory(array $request)
     {
         return $this->categoryRepository->creteCategory($request);
@@ -27,12 +32,15 @@ class CategoryService
     public function deleteCategory(int $id)
     {
         $user = auth()->user();
-        if($user->delete_category || $user->owner){
+        if ($user->delete_category || $user->owner) {
             $category = $this->categoryRepository->getCategorybyId($id);
-            if(!$category) return abort(404);
+            if (!$category) {
+                return abort(404);
+            }
+
             $this->categoryRepository->deleteCategory($category);
         } else {
-            return abort(403,'Unauthorized action.');
+            return abort(403, 'Unauthorized action.');
         }
     }
 

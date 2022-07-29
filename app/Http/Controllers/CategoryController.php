@@ -22,6 +22,11 @@ class CategoryController extends Controller
         return $this->categoryService->creteCategory($request->all());
     }
 
+    public function show(int $id)
+    {
+        return $this->categoryService->getCategoryByid($id);
+    }
+
     public function update(UpdateCategoryRequest $request, $id)
     {
         return $this->categoryService->updateCategory($request->all(), $id);
