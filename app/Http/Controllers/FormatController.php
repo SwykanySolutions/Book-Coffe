@@ -26,6 +26,11 @@ class FormatController extends Controller
         return $this->formatService->updateFormat($request->all(), $id);
     }
 
+    public function show(int $id)
+    {
+        return $this->formatService->getFormatById($id);
+    }
+
     public function destroy($id)
     {
         return $this->formatService->deleteFormat($id);

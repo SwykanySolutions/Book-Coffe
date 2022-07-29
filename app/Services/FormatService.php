@@ -14,6 +14,11 @@ class FormatService
         $this->formatRepository = $formatRepository;
     }
 
+    public function getFormatById(int $id)
+    {
+        return $this->formatRepository->getFormatById($id);
+    }
+
     public function createFormat(array $request)
     {
         return $this->formatRepository->createFormat($request);
@@ -27,12 +32,15 @@ class FormatService
     public function deleteFormat(int $id)
     {
         $user = auth()->user();
-        if($user->delete_format || $user->owner){
+        if ($user->delete_format || $user->owner) {
             $format = $this->formatRepository->getFormatbyId($id);
-            if(!$format) return abort(404);
+            if (!$format) {
+                return abort(404);
+            }
+
             $this->formatRepository->deleteFormat($format);
         } else {
-            return abort(403,'Unauthorized action.');
+            return abort(403, 'Unauthorized action.');
         }
     }
 
