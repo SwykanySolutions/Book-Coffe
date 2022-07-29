@@ -50,11 +50,11 @@ Route::controller(PeopleController::class)->prefix('/people')->group(function ()
     Route::post('/update/{id}', 'update');
 });
 
-Route::apiResource('category', CategoryController::class)->except(['show', 'index']);
+Route::apiResource('category', CategoryController::class)->except(['index']);
 
-Route::apiResource('status', StatusController::class)->except(['show', 'index']);
+Route::apiResource('status', StatusController::class)->except(['index']);
 
-Route::apiResource('format', FormatController::class)->except(['show', 'index']);
+Route::apiResource('format', FormatController::class)->except(['index']);
 
 Route::controller(MangaOverViewController::class)->prefix('/manga')->group(function () {
     Route::get('/', 'index');
