@@ -23,7 +23,7 @@ class StatusController extends Controller
 
     public function show($id)
     {
-        //
+        return $this->statusService->getStatusById($id);
     }
 
     public function update(UpdateStatusRequest $request, $id)

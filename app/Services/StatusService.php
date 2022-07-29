@@ -18,6 +18,11 @@ class StatusService
         return $this->statusRepository->createStatus($request);
     }
 
+    public function getStatusById(int $id)
+    {
+        return $this->statusRepository->getStatusById($id);
+    }
+
     public function updateStatus(int $id, array $request)
     {
         return $this->statusRepository->updateStatus($id, $request);
@@ -26,10 +31,10 @@ class StatusService
     public function deleteStatus(int $id)
     {
         $user = auth()->user();
-        if($user->delete_status || $user->owner){
+        if ($user->delete_status || $user->owner) {
             $this->statusRepository->deleteStatus($id);
         } else {
-            return abort(403,'Unauthorized action.');
+            return abort(403, 'Unauthorized action.');
         }
     }
 }
