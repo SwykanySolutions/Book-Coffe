@@ -25,7 +25,7 @@ class UpdatePeopleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:32|min:2|string|unique:App\Models\People,name',
+            'name' => 'max:32|min:2|string',
             'birth' => 'date',
             'gender' => 'string',
             'photo' => 'image',
@@ -37,7 +37,7 @@ class UpdatePeopleRequest extends FormRequest
             'anilist' => 'string',
             'myanimelist' => 'string',
             'youtube' => 'string',
-            'website' => 'string'
+            'website' => 'string',
         ];
     }
 }
