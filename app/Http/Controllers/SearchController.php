@@ -22,4 +22,24 @@ class SearchController extends Controller
     {
         return $this->SearchService->searchManga($query);
     }
+
+    public function showStatus($query)
+    {
+        return $this->SearchService->searchStatus($query);
+    }
+
+    public function showFormat($query)
+    {
+        return $this->SearchService->searchFormat($query);
+    }
+
+    public function showCategory($query)
+    {
+        return $this->SearchService->searchCategory($query);
+    }
+
+    public function showPeople($query)
+    {
+        return $this->SearchService->searchPeople($query);
+    }
 }
