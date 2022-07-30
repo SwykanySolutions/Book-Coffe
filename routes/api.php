@@ -75,4 +75,8 @@ Route::controller(MangaChapterController::class)->prefix('/chapter')->group(func
 Route::controller(SearchController::class)->prefix('/search')->group(function () {
     Route::get('/{query}', 'showMangaAndUser');
     Route::get('/manga/{query}', 'showManga');
+    Route::get('/status/{query}', 'showStatus');
+    Route::get('/format/{query}', 'showFormat');
+    Route::get('/category/{query}', 'showCategory');
+    Route::get('/people/{query}', 'showPeople');
 });
