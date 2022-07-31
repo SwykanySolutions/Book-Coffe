@@ -44,17 +44,18 @@ Route::controller(\App\Http\Controllers\Admin\UserController::class)->middleware
 });
 
 Route::controller(PeopleController::class)->prefix('/people')->group(function () {
+    Route::get('/', 'index');
     Route::post('/', 'store');
     Route::get('/{id}', 'show');
     Route::delete('/{id}', 'destroy');
     Route::post('/update/{id}', 'update');
 });
 
-Route::apiResource('category', CategoryController::class)->except(['index']);
+Route::apiResource('category', CategoryController::class);
 
-Route::apiResource('status', StatusController::class)->except(['index']);
+Route::apiResource('status', StatusController::class);
 
-Route::apiResource('format', FormatController::class)->except(['index']);
+Route::apiResource('format', FormatController::class);
 
 Route::controller(MangaOverViewController::class)->prefix('/manga')->group(function () {
     Route::get('/', 'index');
