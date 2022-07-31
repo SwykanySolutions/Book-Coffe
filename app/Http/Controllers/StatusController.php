@@ -16,6 +16,11 @@ class StatusController extends Controller
         $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
     }
 
+    public function index()
+    {
+        return $this->statusService->getAllStatus();
+    }
+
     public function store(CreateStatusRequest $request)
     {
         return $this->statusService->createStatus($request->all());

@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\FormatRepositoryInterface;
 use App\Models\Format;
+use App\Repositories\Contracts\FormatRepositoryInterface;
 
 class FormatRepository implements FormatRepositoryInterface
 {
@@ -13,6 +13,11 @@ class FormatRepository implements FormatRepositoryInterface
     public function __construct(Format $format)
     {
         $this->format = $format;
+    }
+
+    public function getAllFormat()
+    {
+        return $this->format->all();
     }
 
     public function getFormatbyId(int $id)

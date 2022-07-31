@@ -14,6 +14,11 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
+    public function getAllCategory()
+    {
+        return $this->categoryRepository->getAllCategory();
+    }
+
     public function getCategoryByid(int $id)
     {
         return $this->categoryRepository->getCategoryByid($id);

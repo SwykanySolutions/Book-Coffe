@@ -6,6 +6,7 @@ use App\Models\Category;
 
 interface CategoryRepositoryInterface
 {
+    public function getAllCategory();
     public function getCategorybyId(int $id);
     public function creteCategory(array $request);
     public function updateCategory(array $request, int $id);

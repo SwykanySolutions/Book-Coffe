@@ -17,6 +17,11 @@ class CategoryController extends Controller
         $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
     }
 
+    public function index()
+    {
+        return $this->categoryService->getAllCategory();
+    }
+
     public function store(CreateCategoryRequest $request)
     {
         return $this->categoryService->creteCategory($request->all());

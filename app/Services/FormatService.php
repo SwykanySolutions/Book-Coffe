@@ -14,6 +14,11 @@ class FormatService
         $this->formatRepository = $formatRepository;
     }
 
+    public function getAllFormat()
+    {
+        return $this->formatRepository->getAllFormat();
+    }
+
     public function getFormatById(int $id)
     {
         return $this->formatRepository->getFormatById($id);

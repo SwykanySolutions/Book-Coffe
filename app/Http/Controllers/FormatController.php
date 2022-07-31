@@ -16,6 +16,11 @@ class FormatController extends Controller
         $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
     }
 
+    public function index()
+    {
+        return $this->formatService->getAllFormat();
+    }
+
     public function store(CreateFormatRequest $request)
     {
         return $this->formatService->createFormat($request->all());

@@ -13,6 +13,11 @@ class StatusService
         $this->statusRepository = $statusRepository;
     }
 
+    public function getAllStatus()
+    {
+        return $this->statusRepository->getAllStatus();
+    }
+
     public function createStatus(array $request)
     {
         return $this->statusRepository->createStatus($request);

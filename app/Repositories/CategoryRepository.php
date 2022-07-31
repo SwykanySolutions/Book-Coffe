@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Models\Category;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -13,6 +13,11 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function __construct(Category $category)
     {
         $this->category = $category;
+    }
+
+    public function getAllCategory()
+    {
+        return $this->category->all();
     }
 
     public function getCategorybyId(int $id)

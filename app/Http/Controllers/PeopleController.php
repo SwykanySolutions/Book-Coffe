@@ -18,7 +18,7 @@ class PeopleController extends Controller
 
     public function index()
     {
-        //
+        return $this->peopleService->getAllPeople();
     }
 
     public function store(PeopleRequest $request)

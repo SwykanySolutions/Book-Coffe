@@ -15,6 +15,11 @@ class StatusRepository implements StatusRepositoryInterface
         return $this->status = $status;
     }
 
+    public function getAllStatus()
+    {
+        return $this->status->all();
+    }
+
     public function getStatusbyId(int $id)
     {
         return $this->status->find($id);

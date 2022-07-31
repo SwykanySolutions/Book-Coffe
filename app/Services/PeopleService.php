@@ -16,10 +16,18 @@ class PeopleService
         $this->peopleRepository = $peopleRepository;
     }
 
+    public function getAllPeople()
+    {
+        return $this->peopleRepository->getAllPeople();
+    }
+
     public function createPeople(Request $request)
     {
         $infos = $request->all();
-        if($photo = $request->file('photo')) $infos['photo'] = $photo->store('people_photo', 'public');
+        if ($photo = $request->file('photo')) {
+            $infos['photo'] = $photo->store('people_photo', 'public');
+        }
+
         $people = $this->peopleRepository->createPeople($infos);
         return $this->peopleRepository->getPeoplebyId($people->id);
     }
@@ -27,7 +35,7 @@ class PeopleService
     public function getPeoplebyId(int $id)
     {
         $people = $this->peopleRepository->getPeoplebyId($id);
-        if(!$people){
+        if (!$people) {
             return abort(404);
         }
         return $people;
@@ -36,7 +44,7 @@ class PeopleService
     public function updatePeople(int $id, Request $request)
     {
         $people = $this->peopleRepository->getPeoplebyId($id);
-        if(!$people){
+        if (!$people) {
             return abort(404);
         }
         $infos = $request->all();
@@ -55,13 +63,16 @@ class PeopleService
         $user = auth()->user();
         if ($user->delete_people || $user->owner) {
             $people = $this->peopleRepository->getPeoplebyId($id);
-            if(!$people) return abort(404);
+            if (!$people) {
+                return abort(404);
+            }
+
             if (Storage::disk('public')->exists($people->photo)) {
                 Storage::disk('public')->delete($people->photo);
             }
             $this->peopleRepository->deletePeople($people);
         } else {
-            return abort(403,'Unauthorized action.');
+            return abort(403, 'Unauthorized action.');
         }
     }
 

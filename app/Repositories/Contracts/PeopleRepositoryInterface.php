@@ -6,6 +6,7 @@ use App\Models\People;
 
 interface PeopleRepositoryInterface
 {
+    public function getAllPeople();
     public function getPeoplebyId(int $id);
     public function createPeople(array $request);
     public function updatePeople(People $people, array $request);
