@@ -2,26 +2,24 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\{
-    SearchRepositoryInterface,
-    StatusRepositoryInterface,
-    UserRepositoryInterface,
-    PeopleRepositoryInterface,
-    MangaOverViewRepositoryInterface,
-    MangaChapterRepositoryInterface,
-    FormatRepositoryInterface,
-    CategoryRepositoryInterface
-};
-use App\Repositories\{
-    SearchRepository,
-    StatusRepository,
-    UserRepository,
-    PeopleRepository,
-    MangaOverViewRepository,
-    MangaChapterRepository,
-    FormatRepository,
-    CategoryRepository
-};
+use App\Repositories\CategoryRepository;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
+use App\Repositories\Contracts\FormatRepositoryInterface;
+use App\Repositories\Contracts\MangaChapterRepositoryInterface;
+use App\Repositories\Contracts\MangaOverViewRepositoryInterface;
+use App\Repositories\Contracts\PeopleRepositoryInterface;
+use App\Repositories\Contracts\ScoreRepositoryInterface;
+use App\Repositories\Contracts\SearchRepositoryInterface;
+use App\Repositories\Contracts\StatusRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\FormatRepository;
+use App\Repositories\MangaChapterRepository;
+use App\Repositories\MangaOverViewRepository;
+use App\Repositories\PeopleRepository;
+use App\Repositories\ScoreRepository;
+use App\Repositories\SearchRepository;
+use App\Repositories\StatusRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -71,6 +69,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             CategoryRepositoryInterface::class,
             CategoryRepository::class,
+        );
+
+        $this->app->bind(
+            ScoreRepositoryInterface::class,
+            ScoreRepository::class
         );
     }
 
