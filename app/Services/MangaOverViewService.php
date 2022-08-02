@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Contracts\FormatRepositoryInterface;
 use App\Repositories\Contracts\MangaOverViewRepositoryInterface;
+use App\Repositories\Contracts\ScoreRepositoryInterface;
 use App\Repositories\Contracts\StatusRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -13,20 +14,31 @@ class MangaOverViewService
     protected $manga;
     protected $format;
     protected $status;
+    protected $score;
 
-    public function __construct(MangaOverViewRepositoryInterface $manga, FormatRepositoryInterface $format, StatusRepositoryInterface $status)
+    public function __construct(MangaOverViewRepositoryInterface $manga, FormatRepositoryInterface $format, StatusRepositoryInterface $status, ScoreRepositoryInterface $score)
     {
         $this->manga = $manga;
         $this->format = $format;
         $this->status = $status;
+        $this->score = $score;
     }
 
     public function getMangabyId(int $id)
     {
         $manga = $this->manga->getMangabyId($id);
         if ($manga) {
+            $score = 0;
+            $scores = $this->score->getScoresByMangaId($id);
+            if ($scores) {
+                for ($i = 0; $i < count($scores); $i++) {
+                    $score += $scores[$i]->score;
+                }
+                $score = $score / count($scores);
+            }
             $manga->views = $manga->views + 1;
             $manga->save();
+            $manga->score = $score;
             $manga->format = $this->format->getFormatbyId($manga->format_id);
             $manga->status = $this->status->getStatusbyId($manga->status_id);
             unset($manga->format_id);
