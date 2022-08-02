@@ -6,6 +6,7 @@ use App\Http\Controllers\FormatController;
 use App\Http\Controllers\MangaChapterController;
 use App\Http\Controllers\MangaOverViewController;
 use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
@@ -62,6 +63,10 @@ Route::controller(MangaOverViewController::class)->prefix('/manga')->group(funct
     Route::get('/ids', 'indexIds');
     Route::post('/', 'store');
     Route::get('/{id}', 'show');
+});
+
+Route::controller(ScoreController::class)->prefix('/manga')->group(function () {
+    Route::post('/score', 'store');
 });
 
 Route::controller(MangaChapterController::class)->prefix('/chapter')->group(function () {
