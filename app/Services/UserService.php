@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UserService
@@ -21,11 +22,21 @@ class UserService
         return $this->userRepository->listAllUsers();
     }
 
-    public function createUser(array $request, $header)
+    public function createUser(Request $request)
     {
-        $user = $this->userRepository->createUser($request);
+        $user = $this->userRepository->createUser($request->all());
         $user = $this->userRepository->getUserbyId($user->id);
-        return $user;
+
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return auth()->user();
+        }
     }
 
     public function createUserToken(array $request, $header)
