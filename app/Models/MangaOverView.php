@@ -50,4 +50,9 @@ class MangaOverView extends Model
     {
         return $this->belongsTo(Format::class);
     }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
 }
