@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request)
     {
-        return $this->userService->createUser($request->all(), $request->header('User-Agent'));
+        return $this->userService->createUser($request);
     }
 
     public function show($name, $tag)
