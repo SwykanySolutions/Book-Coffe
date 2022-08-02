@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('synopsis')->nullable();
             $table->integer('views')->default(0);
-            $table->double('score')->default(0);
             $table->timestamps();
         });
     }
