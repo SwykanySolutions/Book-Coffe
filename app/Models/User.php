@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ChapterManga::class);
     }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
 }
