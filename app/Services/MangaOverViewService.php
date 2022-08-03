@@ -16,8 +16,12 @@ class MangaOverViewService
     protected $status;
     protected $score;
 
-    public function __construct(MangaOverViewRepositoryInterface $manga, FormatRepositoryInterface $format, StatusRepositoryInterface $status, ScoreRepositoryInterface $score)
-    {
+    public function __construct(
+        MangaOverViewRepositoryInterface $manga,
+        FormatRepositoryInterface $format,
+        StatusRepositoryInterface $status,
+        ScoreRepositoryInterface $score
+    ) {
         $this->manga = $manga;
         $this->format = $format;
         $this->status = $status;
@@ -30,7 +34,7 @@ class MangaOverViewService
         if ($manga) {
             $score = 0;
             $scores = $this->score->getScoresByMangaId($id);
-            if ($scores) {
+            if (count($scores)) {
                 for ($i = 0; $i < count($scores); $i++) {
                     $score += $scores[$i]->score;
                 }
