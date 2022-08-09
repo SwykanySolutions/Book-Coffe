@@ -9,7 +9,7 @@ class MangaPage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['page'];
+    protected $fillable = ['page', 'width', 'height'];
 
     public function getPageAttribute()
     {

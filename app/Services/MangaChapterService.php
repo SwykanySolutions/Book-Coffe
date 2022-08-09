@@ -47,7 +47,10 @@ class MangaChapterService
         $chapter = $this->mangaChapterRepository->createChapter($infos, $user->id, $mangaOverView->id);
         $uploadedPages = [];
         foreach ($request->file('pages') as $pages) {
-            $uploadedPages[] = ['page' => $pages->store('chapters/pages/' . $chapter->id, 'public'), 'chapter_manga_id' => $chapter->id, 'created_at' => date('Y-m-d h:i:s'), 'updated_at' => date('Y-m-d h:i:s')];
+            $image_info = getimagesize($pages);
+            $width = $image_info[0];
+            $height = $image_info[1];
+            $uploadedPages[] = ['page' => $pages->store('chapters/pages/' . $chapter->id, 'public'), 'chapter_manga_id' => $chapter->id, 'created_at' => date('Y-m-d h:i:s'), 'updated_at' => date('Y-m-d h:i:s'), 'width' => $width, 'height' => $height];
         }
         $this->mangaChapterRepository->CreatePages($uploadedPages);
         return $this->mangaChapterRepository->getChapterPages($chapter->id);

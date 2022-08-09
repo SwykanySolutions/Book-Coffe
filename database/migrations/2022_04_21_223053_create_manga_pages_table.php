@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('chapter_manga_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('page');
+            $table->string('width');
+            $table->string('height');
             $table->timestamps();
         });
     }
