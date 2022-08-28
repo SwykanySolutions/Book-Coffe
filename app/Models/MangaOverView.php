@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class MangaOverView extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $fillable = ['photo', 'background_photo', 'name', 'synopsis', 'format', 'status', 'views', 'score'];
 

@@ -7,10 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use Searchable;
 
     protected $fillable = ['name', 'email', 'password', 'profile_photo', 'background_photo', 'about', 'message', 'report_message', 'report_chapter', 'create_manga', 'update_manga', 'delete_manga', 'upload_manga_chapter', 'update_manga_chapter', 'delete_manga_chapter', 'create_novel', 'update_novel', 'delete_novel', 'upload_novel_chapter', 'update_novel_chapter', 'delete_novel_chapter', 'create_people', 'update_people', 'delete_people', 'ban_user', 'unban_user'];
 
