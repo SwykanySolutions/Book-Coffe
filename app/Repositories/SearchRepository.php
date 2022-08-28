@@ -31,10 +31,7 @@ class SearchRepository implements SearchRepositoryInterface
 
     public function searchManga(string $query)
     {
-        return $this->mangaOverView->query()
-            ->where('name', 'like', "%{$query}%")
-            ->orWhere('synopsis', 'like', "%{$query}%")
-            ->get();
+        return $this->mangaOverView->search($query)->get();
     }
 
     public function searchUser(string $query)
