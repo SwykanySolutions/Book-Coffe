@@ -11,7 +11,7 @@ class MangaOverView extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['photo', 'background_photo', 'name', 'synopsis', 'format', 'status', 'views', 'score'];
+    protected $fillable = ['photo', 'background_photo', 'name', 'alternative_name', 'synopsis', 'format', 'status', 'views', 'score'];
 
     public function getPhotoAttribute()
     {
