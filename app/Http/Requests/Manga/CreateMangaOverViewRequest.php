@@ -26,6 +26,7 @@ class CreateMangaOverViewRequest extends FormRequest
     {
         return [
             "name" => "required|string|max:32|min:2|unique:App\Models\MangaOverView,name",
+            "alternative_name" => "string",
             "photo" => "image",
             "background_photo" => "image",
             "synopsis" => "string|max:500|min:20",

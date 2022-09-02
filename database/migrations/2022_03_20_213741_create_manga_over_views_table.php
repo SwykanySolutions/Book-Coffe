@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('background_photo')->nullable();
             $table->string('name')->unique();
-            $table->string('synopsis')->nullable();
+            $table->string('alternative_name')->nullable();
+            $table->text('synopsis')->nullable();
             $table->integer('views')->default(0);
             $table->timestamps();
         });
