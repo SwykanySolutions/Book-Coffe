@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->date('birth')->nullable();
             $table->string('gender')->nullable();
-            $table->string('about')->nullable();
+            $table->text('about')->nullable();
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();

@@ -49,6 +49,9 @@ return new class extends Migration
             $table->boolean('create_format')->default(false);
             $table->boolean('update_format')->default(false);
             $table->boolean('delete_format')->default(false);
+            $table->boolean('create_slider')->default(false);
+            $table->boolean('update_slider')->default(false);
+            $table->boolean('delete_slider')->default(false);
             $table->boolean('ban_user')->default(false);
             $table->boolean('unban_user')->default(false);
             $table->boolean('manager_permisions')->default(false);
