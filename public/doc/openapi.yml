@@ -1,0 +1,1294 @@
+openapi: 3.0.0
+info:
+  title: Tekkadan Api
+  description: manga reader api
+  version: 0.9.0
+servers:
+  - url: http://tekkadan.test:8000
+    description: Main (local) Server
+  - url: https://api.tekkadan.org
+    description: Main (production) Server
+tags:
+- name: "User"
+  description: "User routes"
+- name: "Auth"
+  description: "Auth routes"
+- name: "Search"
+  description: "Search routes"
+- name: "Category"
+  description: "Category routes"
+- name: "Status"
+  description: "Status routes"
+- name: "Format"
+  description: "Format routes"
+- name: "People"
+  description: "People routes"
+- name: "Manga"
+  description: "Manga routes"
+- name: "Chapter"
+  description: "Chapter routes"
+- name: "Slider"
+  description: "Slider routes"
+
+paths:
+  /user:
+    get:
+      tags:
+        - "User"
+      summary: get all user
+      headers:
+        Accept: application/json
+      responses:
+        '200':
+          description: get all user
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Paginate'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - "User"
+      summary: create user
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: query
+          description: User name
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: E-mail
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: User password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: create user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      tags:
+        - "User"
+      summary: delete user
+      headers:
+        Accept: application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: bearer token
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: user deleted sucess
+        '403':
+          description: unauthorized
+  /user/me:
+    get:
+      tags:
+        - "User"
+      summary: Get user by token
+      headers:
+        Accept: application/json
+      parameters:
+        - name: token
+          in: header
+          required: true
+          schema:
+            type: bearer
+            bearerFormat: sanctum
+      responses:
+        '200':
+          description: return user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/{name}/{tag}:
+    get:
+      tags:
+        - "User"
+      summary: Get user by name tag
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: path
+          description: user name
+          required: true
+          schema:
+            type: string
+        - name: tag
+          in: path
+          description: user tag
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return user infos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: user not found
+  /auth:
+    post:
+      tags:
+        - "Auth"
+      summary: Login user
+      headers:
+        Accept: application/json
+      parameters:
+        - name: email
+          in: query
+          description: user E-mail
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: user password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: user login sucess
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: user not found
+        '403':
+          description: unauthorized
+  /auth/token:
+    post:
+      tags:
+        - "Auth"
+      summary: Login user
+      headers:
+        Accept: application/json
+      parameters:
+        - name: email
+          in: query
+          description: user E-mail
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: user password
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: user login sucess
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/User'
+                  - type: object
+                    properties:
+                      token:
+                        type: string
+        '404':
+          description: user not found
+        '403':
+          description: unauthorized
+  /search/{name}:
+    get:
+      tags:
+        - "Search"
+      summary: search user and manga
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: path
+          description: user or manga name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return mangas and users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Search'
+  /search/manga/{name}:
+    get:
+      tags:
+        - "Search"
+      summary: search manga
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: path
+          description: manga name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return mangas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Manga'
+  /search/status/{name}:
+    get:
+      tags:
+        - "Search"
+      summary: search status
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: path
+          description: status name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+  /search/format/{name}:
+    get:
+      tags:
+        - "Search"
+      summary: search format
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: path
+          description: format name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return formats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+  /search/category/{name}:
+    get:
+      tags:
+        - "Search"
+      summary: search category
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: path
+          description: category name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+  /search/people/{name}:
+    get:
+      tags:
+        - "Search"
+      summary: search people
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: path
+          description: people name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return people
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/People'
+  /category:
+    get:
+      tags:
+        - "Category"
+      summary: get all category
+      headers:
+        Accept: application/json
+      responses:
+        '200':
+          description: return all categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+    post:
+      tags:
+        - "Category"
+      summary: create category
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: query
+          description: Category name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+  /category/{id}:
+    get:
+      tags:
+        - "Category"
+      summary: get category by id
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '404':
+          description: Category not found
+    put:
+      tags:
+        - "Category"
+      summary: update category
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Tag'
+        '404':
+          description: Category not found
+    delete:
+      tags:
+        - "Category"
+      summary: delete category
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: category deleted sucess
+        '404':
+          description: Category not found
+  /status:
+    get:
+      tags:
+        - "Status"
+      summary: get all status
+      headers:
+        Accept: application/json
+      responses:
+        '200':
+          description: return all status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+    post:
+      tags:
+        - "Status"
+      summary: create Status
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: query
+          description: Status name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+  /status/{id}:
+    get:
+      tags:
+        - "Status"
+      summary: get status by id
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Status id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return Status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+    put:
+      tags:
+        - "Status"
+      summary: update status
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Status id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+    delete:
+      tags:
+        - "Status"
+      summary: delete status
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Status id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: status deleted sucess
+  /format:
+    get:
+      tags:
+        - "Format"
+      summary: get all formats
+      headers:
+        Accept: application/json
+      responses:
+        '200':
+          description: return all formats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+    post:
+      tags:
+        - "Format"
+      summary: create Format
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: query
+          description: format name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return formats
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+  /format/{id}:
+    get:
+      tags:
+        - "Format"
+      summary: get format by id
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Format id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return Format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+    put:
+      tags:
+        - "Format"
+      summary: update format
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Format id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+    delete:
+      tags:
+        - "Format"
+      summary: delete format
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: Format id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Format deleted sucess
+  /people:
+    get:
+      tags:
+        - "People"
+      summary: get all people
+      headers:
+        Accept: application/json
+      responses:
+        '200':
+          description: return all peoples
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Paginate'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/People'
+    post:
+      tags:
+        - "People"
+      summary: create people
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: query
+          description: People name
+          required: true
+          schema:
+            type: string
+        - name: birth
+          in: query
+          description: birth
+          schema:
+            type: string
+            format: date
+        - name: gender
+          in: query
+          schema:
+            type: string
+        - name: photo
+          in: formData
+          schema:
+            type: file
+        - name: background_photo
+          in: formData
+          schema:
+            type: file
+        - name: about
+          in: query
+          schema:
+            type: string
+        - name: twitter
+          in: query
+          schema:
+            type: string
+        - name: facebook
+          in: query
+          schema:
+            type: string
+        - name: instagram
+          in: query
+          schema:
+            type: string
+        - name: anilist
+          in: query
+          schema:
+            type: string
+        - name: myanimelist
+          in: query
+          schema:
+            type: string
+        - name: youtube
+          in: query
+          schema:
+            type: string
+        - name: website
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return people
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/People'
+  /people/{id}:
+    get:
+      tags:
+        - "People"
+      summary: get people by id
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: People id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return people
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/People'
+        '404':
+          description: people not found
+    post:
+      tags:
+        - "People"
+      summary: update people
+      headers:
+        Accept: application/json
+      parameters:
+        - name: name
+          in: query
+          description: People name
+          schema:
+            type: string
+        - name: birth
+          in: query
+          description: birth
+          schema:
+            type: string
+            format: date
+        - name: gender
+          in: query
+          schema:
+            type: string
+        - name: photo
+          in: formData
+          schema:
+            type: file
+        - name: background_photo
+          in: formData
+          schema:
+            type: file
+        - name: about
+          in: query
+          schema:
+            type: string
+        - name: twitter
+          in: query
+          schema:
+            type: string
+        - name: facebook
+          in: query
+          schema:
+            type: string
+        - name: instagram
+          in: query
+          schema:
+            type: string
+        - name: anilist
+          in: query
+          schema:
+            type: string
+        - name: myanimelist
+          in: query
+          schema:
+            type: string
+        - name: youtube
+          in: query
+          schema:
+            type: string
+        - name: website
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return people
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/People'
+        '404':
+          description: people not found
+    delete:
+      tags:
+        - "People"
+      summary: delete people
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: people id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: people deleted sucess
+        '404':
+          description: people not found
+  /manga:
+    get:
+      tags:
+        - "Manga"
+      summary: get all manga
+      headers:
+        Accept: application/json
+      responses:
+        '200':
+          description: return all manga
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Paginate'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Manga'
+    post:
+      tags:
+        - "Manga"
+      summary: create manga
+      headers:
+        Accept: application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: name
+          in: query
+          description: manga name
+          required: true
+          schema:
+            type: string
+        - name: alternative_name
+          in: query
+          description: manga alternative names
+          schema:
+            type: string
+        - name: photo
+          in: formData
+          description: Manga photo
+          schema:
+            type: file
+        - name: background_photo
+          in: formData
+          description: Manga background photo
+          schema:
+            type: file
+        - name: synopsis
+          in: query
+          description: manga synopsis
+          schema:
+            type: string
+        - name: categories
+          in: query
+          description: categories ids
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+        - name: staffs
+          in: query
+          description: manga staffs ids
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+        - name: format
+          in: query
+          description: manga format id
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: manga status id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return mangas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manga'
+  /manga/{id}:
+    get:
+      tags:
+        - "Manga"
+      summary: get manga by id
+      headers:
+        Accept: application/json
+      parameters:
+        - name: id
+          in: path
+          description: manga id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return manga
+          content:
+            application:json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Manga'
+                  - type: object
+                    properties:
+                      format:
+                        type: object
+                        $ref: '#/components/schemas/Tag'
+                      status:
+                        type: object
+                        $ref: '#/components/schemas/Tag'
+                      categories:
+                        type: array
+                        items:
+                          allOf:
+                            - $ref: '#/components/schemas/Tag'
+                            - type: object
+                              properties:
+                                pivot:
+                                  type: object
+                                  properties:
+                                    manga_over_view_id:
+                                      type: integer
+                                    category_id:
+                                      type: integer
+                      people:
+                        type: object
+                        allOf:
+                          - $ref: '#/components/schemas/People'
+                          - type: object
+                            properties:
+                              pivot:
+                                type: object
+                                properties:
+                                  manga_over_view_id:
+                                    type: integer
+                                  category_id:
+                                    type: integer
+        '404':
+          description: manga not found
+  /manga/score:
+    post:
+      tags:
+        - "Manga"
+      summary: user add score to manga
+      headers:
+        Accept: application/json
+      parameters:
+        - name: manga_id
+          in: query
+          description: manga id
+          schema:
+            type: integer
+        - name: score
+          in: query
+          description: score 1-10
+          schema:
+            type: integer
+      responses:
+        '403':
+          description: unauthorized
+  /manga/ids:
+    get:
+      tags:
+        - "Manga"
+      summary: get all manga ids
+      headers:
+        Accept: application/json
+      responses:
+        '200':
+          description: return all manga ids
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ids'
+  /chapter/ids:
+    get:
+      tags:
+        - "Chapter"
+      summary: get all chapter ids
+      headers:
+        Accept: application/json
+      responses:
+        '200':
+          description: return all chapter ids
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ids'
+
+
+components:
+  schemas:
+    People:
+      type: object
+      properties:
+        id:
+          type: integer
+        photo:
+          type: string
+        background_photo:
+          type: string
+        name:
+          type: string
+        birth:
+          type: string
+          format: date-time
+          nullable: true
+        gender:
+          type: string
+        about:
+          type: string
+        twitter:
+          type: string
+          nullable: true
+        facebook:
+          type: string
+          nullable: true
+        instagram:
+          type: string
+          nullable: true
+        anilist:
+          type: string
+          nullable: true
+        myanimelist:
+          type: string
+          nullable: true
+        youtube:
+          type: string
+          nullable: true
+        website:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Search:
+      type: object
+      properties:
+        mangas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Manga'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    Ids:
+      type: array
+      items:
+        properties:
+          id:
+            type: integer
+    Paginate:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        data:
+          type: array
+        first_page_url:
+          type: string
+        from:
+          type: integer
+        last_page:
+          type: integer
+        last_page_url:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Links'
+        next_page_url:
+          type: string
+          nullable: true
+        path:
+          type: string
+        per_page:
+          type: string
+        prev_page_url:
+          type: string
+          nullable: true
+        to:
+          type: integer
+        total:
+          type: integer
+    Links:
+      type: object
+      properties:
+        url:
+          type: string
+          nullable: true
+        label:
+          type: string
+        active:
+          type: boolean
+    Manga:
+      type: object
+      properties:
+        id:
+          type: integer
+        photo:
+          type: string
+        background_photo:
+          type: string
+        name:
+          type: string
+        alternative_name:
+          type: string
+        synopsis:
+          type: string
+        views:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        profile_photo:
+          type: string
+        background_photo:
+          type: string
+        about:
+          type: string
+        banned:
+          type: boolean
+          default: false
+        message:
+          type: boolean
+          default: true
+        report_message:
+          type: boolean
+          default: true
+        report_chapter:
+          type: boolean
+          default: true
+        create_manga:
+          type: boolean
+          default: false
+        update_manga:
+          type: boolean
+          default: false
+        delete_manga:
+          type: boolean
+          default: false
+        upload_manga_chapter:
+          type: boolean
+          default: false
+        update_manga_chapter:
+          type: boolean
+          default: false
+        delete_manga_chapter:
+          type: boolean
+          default: false
+        create_novel:
+          type: boolean
+          default: false
+        update_novel:
+          type: boolean
+          default: false
+        delete_novel:
+          type: boolean
+          default: false
+        upload_novel_chapter:
+          type: boolean
+          default: false
+        update_novel_chapter:
+          type: boolean
+          default: false
+        delete_novel_chapter:
+          type: boolean
+          default: false
+        create_people:
+          type: boolean
+          default: false
+        update_people:
+          type: boolean
+          default: false
+        delete_people:
+          type: boolean
+          default: false
+        create_category:
+          type: boolean
+          default: false
+        update_category:
+          type: boolean
+          default: false
+        delete_category:
+          type: boolean
+          default: false
+        create_status:
+          type: boolean
+          default: false
+        update_status:
+          type: boolean
+          default: false
+        delete_status:
+          type: boolean
+          default: false
+        create_format:
+          type: boolean
+          default: false
+        update_format:
+          type: boolean
+          default: false
+        delete_format:
+          type: boolean
+          default: false
+        create_slider:
+          type: boolean
+          default: false
+        update_slider:
+          type: boolean
+          default: false
+        delete_slider:
+          type: boolean
+          default: false
+        ban_user:
+          type: boolean
+          default: false
+        unban_user:
+          type: boolean
+          default: false
+        manager_permisions:
+          type: boolean
+          default: false
+        owner:
+          type: boolean
+          default: false
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time

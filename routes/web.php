@@ -20,3 +20,7 @@ Route::controller(AuthController::class)->prefix('/auth')->group(function () {
     Route::delete('/', 'destroy_all');
     Route::delete('/{id}', 'destroy');
 });
+
+Route::get('/documentation', function () {
+    return view('doc.index');
+});
