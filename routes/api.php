@@ -50,7 +50,7 @@ Route::controller(PeopleController::class)->prefix('/people')->group(function ()
     Route::post('/', 'store');
     Route::get('/{id}', 'show');
     Route::delete('/{id}', 'destroy');
-    Route::post('/update/{id}', 'update');
+    Route::post('/{id}', 'update');
 });
 
 Route::apiResource('category', CategoryController::class);
@@ -80,12 +80,12 @@ Route::controller(MangaChapterController::class)->prefix('/chapter')->group(func
 });
 
 Route::controller(SearchController::class)->prefix('/search')->group(function () {
-    Route::get('/{query}', 'showMangaAndUser');
-    Route::get('/manga/{query}', 'showManga');
-    Route::get('/status/{query}', 'showStatus');
-    Route::get('/format/{query}', 'showFormat');
-    Route::get('/category/{query}', 'showCategory');
-    Route::get('/people/{query}', 'showPeople');
+    Route::get('/{name}', 'showMangaAndUser');
+    Route::get('/manga/{name}', 'showManga');
+    Route::get('/status/{name}', 'showStatus');
+    Route::get('/format/{name}', 'showFormat');
+    Route::get('/category/{name}', 'showCategory');
+    Route::get('/people/{name}', 'showPeople');
 });
 
 Route::controller(SliderController::class)->prefix('/slider')->group(function () {
