@@ -29,43 +29,43 @@ class SearchRepository implements SearchRepositoryInterface
         $this->status = $status;
     }
 
-    public function searchManga(string $query)
+    public function searchManga(string $name)
     {
-        return $this->mangaOverView->search($query)->get();
+        return $this->mangaOverView->search($name)->get();
     }
 
-    public function searchUser(string $query)
+    public function searchUser(string $name)
     {
         return $this->user->query()
-            ->where('name', 'like', "%{$query}%")
+            ->where('name', 'like', "%{$name}%")
             ->get();
     }
 
-    public function searchCategory(string $query)
+    public function searchCategory(string $name)
     {
         return $this->category->query()
-            ->where('name', 'like', "%{$query}%")
+            ->where('name', 'like', "%{$name}%")
             ->get();
     }
 
-    public function searchFormat(string $query)
+    public function searchFormat(string $name)
     {
         return $this->format->query()
-            ->where('name', 'like', "%{$query}%")
+            ->where('name', 'like', "%{$name}%")
             ->get();
     }
 
-    public function searchPeople(string $query)
+    public function searchPeople(string $name)
     {
         return $this->people->query()
-            ->where('name', 'like', "%{$query}%")
+            ->where('name', 'like', "%{$name}%")
             ->get();
     }
 
-    public function searchStatus(string $query)
+    public function searchStatus(string $name)
     {
         return $this->status->query()
-            ->where('name', 'like', "%{$query}%")
+            ->where('name', 'like', "%{$name}%")
             ->get();
     }
 

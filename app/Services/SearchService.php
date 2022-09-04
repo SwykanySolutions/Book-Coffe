@@ -13,36 +13,36 @@ class SearchService
         $this->SearchRepository = $SearchRepository;
     }
 
-    public function search(string $query)
+    public function search(string $name)
     {
-        $response['mangas'] = $this->SearchRepository->searchManga($query);
-        $response['users'] = $this->SearchRepository->searchUser($query);
+        $response['mangas'] = $this->SearchRepository->searchManga($name);
+        $response['users'] = $this->SearchRepository->searchUser($name);
         return $response;
     }
 
-    public function searchManga(string $query)
+    public function searchManga(string $name)
     {
-        return $this->SearchRepository->searchManga($query);
+        return $this->SearchRepository->searchManga($name);
     }
 
-    public function searchStatus(string $query)
+    public function searchStatus(string $name)
     {
-        return $this->SearchRepository->searchStatus($query);
+        return $this->SearchRepository->searchStatus($name);
     }
 
-    public function searchPeople(string $query)
+    public function searchPeople(string $name)
     {
-        return $this->SearchRepository->searchPeople($query);
+        return $this->SearchRepository->searchPeople($name);
     }
 
-    public function searchCategory(string $query)
+    public function searchCategory(string $name)
     {
-        return $this->SearchRepository->searchCategory($query);
+        return $this->SearchRepository->searchCategory($name);
     }
 
-    public function searchFormat(string $query)
+    public function searchFormat(string $name)
     {
-        return $this->SearchRepository->searchFormat($query);
+        return $this->SearchRepository->searchFormat($name);
     }
 
 }

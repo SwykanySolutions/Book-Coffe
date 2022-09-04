@@ -13,33 +13,33 @@ class SearchController extends Controller
         $this->SearchService = $SearchService;
     }
 
-    public function showMangaAndUser($query)
+    public function showMangaAndUser($name)
     {
-        return $this->SearchService->search($query);
+        return $this->SearchService->search($name);
     }
 
-    public function showManga($query)
+    public function showManga($name)
     {
-        return $this->SearchService->searchManga($query);
+        return $this->SearchService->searchManga($name);
     }
 
-    public function showStatus($query)
+    public function showStatus($name)
     {
-        return $this->SearchService->searchStatus($query);
+        return $this->SearchService->searchStatus($name);
     }
 
-    public function showFormat($query)
+    public function showFormat($name)
     {
-        return $this->SearchService->searchFormat($query);
+        return $this->SearchService->searchFormat($name);
     }
 
-    public function showCategory($query)
+    public function showCategory($name)
     {
-        return $this->SearchService->searchCategory($query);
+        return $this->SearchService->searchCategory($name);
     }
 
-    public function showPeople($query)
+    public function showPeople($name)
     {
-        return $this->SearchService->searchPeople($query);
+        return $this->SearchService->searchPeople($name);
     }
 }
