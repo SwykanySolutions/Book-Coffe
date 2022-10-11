@@ -13,6 +13,8 @@ use App\Repositories\Contracts\SearchRepositoryInterface;
 use App\Repositories\Contracts\StatusRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\SliderRepositoryInterface;
+use App\Repositories\Contracts\RoleRepositoryInterface;
+use App\Repositories\Contracts\ResourceRepositoryInterface;
 use App\Repositories\FormatRepository;
 use App\Repositories\MangaChapterRepository;
 use App\Repositories\MangaOverViewRepository;
@@ -22,6 +24,8 @@ use App\Repositories\SearchRepository;
 use App\Repositories\StatusRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\SliderRepository;
+use App\Repositories\RoleRepository;
+use App\Repositories\ResourceRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -81,6 +85,16 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             SliderRepositoryInterface::class,
             SliderRepository::class
+        );
+
+        $this->app->bind(
+            RoleRepositoryInterface::class,
+            RoleRepository::class
+        );
+
+        $this->app->bind(
+            ResourceRepositoryInterface::class,
+            ResourceRepository::class
         );
     }
 

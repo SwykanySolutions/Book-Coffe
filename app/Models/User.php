@@ -14,9 +14,23 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     use Searchable;
 
-    protected $fillable = ['name', 'email', 'password', 'profile_photo', 'background_photo', 'about', 'message', 'report_message', 'report_chapter', 'create_manga', 'update_manga', 'delete_manga', 'upload_manga_chapter', 'update_manga_chapter', 'delete_manga_chapter', 'create_novel', 'update_novel', 'delete_novel', 'upload_novel_chapter', 'update_novel_chapter', 'delete_novel_chapter', 'create_people', 'update_people', 'delete_people', 'ban_user', 'unban_user'];
+    protected $fillable = ['name', 'email', 'password', 'profile_photo', 'background_photo', 'about', 'balance', 'exp'];
 
     protected $hidden = ['password', 'email'];
+
+    public function searchableAs()
+    {
+        return 'id';
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        $array['name'] = $this->name;
+
+        return $array;
+    }
 
     public function getAboutAttribute()
     {
@@ -55,5 +69,15 @@ class User extends Authenticatable
     public function scores()
     {
         return $this->hasMany(Score::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function frames()
+    {
+        return $this->belongsToMany(Frame::class);
     }
 }

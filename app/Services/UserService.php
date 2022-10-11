@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\Contracts\RoleRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +12,12 @@ class UserService
 {
 
     protected $userRepository;
+    protected $roleRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, RoleRepositoryInterface $roleRepository)
     {
         $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     public function getAllUsers()
@@ -26,6 +29,7 @@ class UserService
     {
         $user = $this->userRepository->createUser($request->all());
         $user = $this->userRepository->getUserbyId($user->id);
+        $user->roles()->sync([1]);
 
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -39,11 +43,12 @@ class UserService
         }
     }
 
-    public function createUserToken(array $request, $header)
+    public function createUserToken(Request $request)
     {
-        $user = $this->userRepository->createUser($request);
+        $user = $this->userRepository->createUser($request->all());
         $user = $this->userRepository->getUserbyId($user->id);
-        $user['token'] = $user->createToken($header)->plainTextToken;
+        $user->roles()->sync([1]);
+        $user['token'] = $user->createToken($request->header('User-Agent'))->plainTextToken;
         return $user;
     }
 
@@ -103,4 +108,21 @@ class UserService
         }
     }
 
+    public function updateUserRoles(int $id, Request $request)
+    {
+        $user = $this->userRepository->getUserbyId($id);
+        $roles = $request->roles;
+        $applicant = auth()->user();
+        $userRole = $user->roles()->orderBy('position', 'ASC')->get()[0];
+        if(!$applicant->owner){
+            foreach ($request->roles as $roleId){
+                $role = $this->roleRepository->getRoleById($roleId);
+                if($role->position <= $userRole->position){
+                    abort(403);
+                }
+            }
+            array_push($roles, $userRole->id);
+        }
+        $this->userRepository->updateUserRoles($user, $roles);
+    }
 }

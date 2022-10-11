@@ -50,4 +50,8 @@ class UserRepository implements UserRepositoryInterface
         return  $this->user->destroy($id);
     }
 
+    public function updateUserRoles(User $user, array $roles)
+    {
+        $user->roles()->sync($roles);
+    }
 }
