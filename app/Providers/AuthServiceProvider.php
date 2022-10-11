@@ -23,24 +23,26 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+        if(env('ACCESS_ACTIVE', True)) {
+            $this->registerPolicies();
 
-        $resources = \App\Models\Resource::all();
+            $resources = \App\Models\Resource::all();
 
-        Gate::before(function ($user){
-            return $user->owner;
-        });
-
-        foreach ($resources as $resource) {
-            Gate::define($resource->resource, function ($user) use ($resource){
-                foreach ($user->roles as $role) {
-                    if($resource->roles->contains($role))
-                    {
-                        return True;
-                    }
-                }
-                return False;
+            Gate::before(function ($user){
+                return $user->owner;
             });
+
+            foreach ($resources as $resource) {
+                Gate::define($resource->resource, function ($user) use ($resource){
+                    foreach ($user->roles as $role) {
+                        if($resource->roles->contains($role))
+                        {
+                            return True;
+                        }
+                    }
+                    return False;
+                });
+            }
         }
     }
 }
