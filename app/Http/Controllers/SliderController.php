@@ -14,7 +14,7 @@ class SliderController extends Controller
     public function __construct(SliderService $sliderService)
     {
         $this->sliderService = $sliderService;
-        $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
+        $this->middleware(['auth:sanctum', 'access.control'])->only('store', 'update', 'destroy');
     }
 
     public function index()

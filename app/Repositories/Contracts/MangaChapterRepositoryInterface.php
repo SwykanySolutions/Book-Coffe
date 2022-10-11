@@ -12,5 +12,6 @@ interface MangaChapterRepositoryInterface
     public function createChapter(array $request, int $userId, int $mangaOverViewId);
     public function CreatePages(array $uploadedPages);
     public function getChapterPages(int $id);
+    public function getLastsChapters();
     public function deleteChapter(ChapterManga $chapterManga);
 }

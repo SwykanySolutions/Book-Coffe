@@ -13,8 +13,7 @@ class PeopleRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->manager_permisions || $user->owner;
+        return True;
     }
 
     /**

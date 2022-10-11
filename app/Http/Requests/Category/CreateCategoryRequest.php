@@ -13,8 +13,7 @@ class CreateCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->create_category || $user->owner;
+        return True;
     }
 
     /**

@@ -36,9 +36,7 @@ class SearchRepository implements SearchRepositoryInterface
 
     public function searchUser(string $name)
     {
-        return $this->user->query()
-            ->where('name', 'like', "%{$name}%")
-            ->get();
+        return $this->user->search($name)->get();
     }
 
     public function searchCategory(string $name)

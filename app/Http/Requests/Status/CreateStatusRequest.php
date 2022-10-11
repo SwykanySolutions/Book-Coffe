@@ -13,8 +13,7 @@ class CreateStatusRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->create_status || $user->owner;
+        return True;
     }
 
     /**

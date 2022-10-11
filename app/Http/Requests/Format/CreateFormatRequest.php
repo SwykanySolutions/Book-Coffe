@@ -13,8 +13,7 @@ class CreateFormatRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->create_format || $user->owner;
+        return True;
     }
 
     /**

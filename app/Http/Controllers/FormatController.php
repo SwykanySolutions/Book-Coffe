@@ -13,7 +13,7 @@ class FormatController extends Controller
     public function __construct(FormatService $formatService)
     {
         $this->formatService = $formatService;
-        $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
+        $this->middleware(['auth:sanctum', 'access.control'])->only('store', 'update', 'destroy');
     }
 
     public function index()

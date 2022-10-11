@@ -13,7 +13,7 @@ class PeopleController extends Controller
     public function __construct(PeopleService $peopleService)
     {
         $this->peopleService = $peopleService;
-        $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
+        $this->middleware(['auth:sanctum', 'access.control'])->only('store', 'update', 'destroy');
     }
 
     public function index()

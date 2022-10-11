@@ -13,8 +13,7 @@ class UpdatePeopleRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->update_people || $user->owner;
+        return True;
     }
 
     /**

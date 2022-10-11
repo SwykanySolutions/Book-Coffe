@@ -13,8 +13,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->update_category || $user->owner;
+        return True;
     }
 
     /**

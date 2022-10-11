@@ -60,4 +60,8 @@ class MangaChapterRepository implements MangaChapterRepositoryInterface
         $chapterManga->delete();
     }
 
+    public function getLastsChapters()
+    {
+        return $this->chapterManga->with('manga_over_views')->orderBy('created_at', 'DESC')->paginate(20);
+    }
 }

@@ -13,8 +13,7 @@ class CreateMangaOverViewRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->create_manga || $user->owner;
+        return true;
     }
 
     /**

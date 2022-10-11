@@ -13,7 +13,7 @@ class StatusController extends Controller
     public function __construct(StatusService $statusService)
     {
         $this->statusService = $statusService;
-        $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
+        $this->middleware(['auth:sanctum', 'access.control'])->only('store', 'update', 'destroy');
     }
 
     public function index()

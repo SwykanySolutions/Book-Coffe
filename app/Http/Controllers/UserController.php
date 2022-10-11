@@ -27,6 +27,11 @@ class UserController extends Controller
         return $this->userService->createUser($request);
     }
 
+    public function storeToken(CreateUserRequest $request)
+    {
+        return $this->userService->createUserToken($request);
+    }
+
     public function show($name, $tag)
     {
         return $this->userService->getUserbyTag($name, $tag);

@@ -13,8 +13,7 @@ class CreateSliderRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->create_slider || $user->owner;
+        return True;
     }
 
     /**

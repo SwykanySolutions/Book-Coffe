@@ -2,27 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\PermissionUserRequest;
-use App\Http\Requests\Admin\ManagerPermissionRequest;
 use App\Http\Controllers\Controller;
-use App\Services\AdminUserService;
+use App\Http\Requests\Admin\UpdateUserRolesRequest;
+use Illuminate\Http\Request;
+use \App\Services\UserService;
 
 class UserController extends Controller
 {
-    private $userService;
 
-    public function __construct(AdminUserService $userService)
+    protected $userService;
+
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
+        $this->middleware(['auth:sanctum', 'access.control']);
     }
 
-    public function update_permission(PermissionUserRequest $request, $id)
+    public function updateRoles(int $id, UpdateUserRolesRequest $request)
     {
-        return $this->userService->update_permission($request->all(), $id);
-    }
-
-    public function manager_permisions(ManagerPermissionRequest $request, $id)
-    {
-        return $this->userService->update_manager_permision($request, $id);
+        $this->userService->updateUserRoles($id, $request);
     }
 }

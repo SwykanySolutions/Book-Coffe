@@ -13,7 +13,7 @@ class MangaChapterController extends Controller
     public function __construct(MangaChapterService $mangaChapterService)
     {
         $this->mangaChapterService = $mangaChapterService;
-        $this->middleware('auth:sanctum')->only('store', 'update', 'destroy');
+        $this->middleware(['auth:sanctum', 'access.control'])->only('store', 'update', 'destroy');
     }
 
     public function index($id)
@@ -29,6 +29,11 @@ class MangaChapterController extends Controller
     public function indexIds()
     {
         return $this->mangaChapterService->getAllIds();
+    }
+
+    public function indexLasts()
+    {
+        return $this->mangaChapterService->getLastsChapters();
     }
 
     public function store(CreateMangaChapterRequest $request)

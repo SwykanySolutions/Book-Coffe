@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Manga;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateMangaChapterRequest extends FormRequest
+class UpdateUserRolesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,22 +13,19 @@ class CreateMangaChapterRequest extends FormRequest
      */
     public function authorize()
     {
-        return True;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function rules()
     {
         return [
-            "title" => "string",
-            "chapter" => "required|numeric",
-            "pages" => "required|array|max:500",
-            "pages.*" => "image|mimes:jpg,jpeg,png,gif",
-            "manga_id" => "required|numeric",
+            'roles' => 'required|array',
+            'roles.*' => 'numeric'
         ];
     }
 }

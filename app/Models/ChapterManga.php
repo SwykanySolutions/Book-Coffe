@@ -23,7 +23,7 @@ class ChapterManga extends Model
 
     public function manga_over_views()
     {
-        return $this->belongsTo(MangaOverView::class);
+        return $this->belongsTo(MangaOverView::class, 'manga_over_view_id');
     }
 
     public function manga_pages()

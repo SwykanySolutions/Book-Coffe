@@ -13,8 +13,7 @@ class CreateMangaScoreRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user;
+        return True;
     }
 
     /**

@@ -13,8 +13,7 @@ class UpdateFormatRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = auth()->user();
-        return $user->update_format || $user->owner;
+        return True;
     }
 
     /**

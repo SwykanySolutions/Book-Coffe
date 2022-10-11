@@ -19,6 +19,11 @@ class MangaChapterService
         $this->mangaOverViewRepository = $mangaOverViewRepository;
     }
 
+    public function getLastsChapters()
+    {
+        return $this->mangaChapterRepository->getLastsChapters();
+    }
+
     public function getAllChapeterbyMangaId(int $id)
     {
         return $this->mangaChapterRepository->getAllChapeterbyMangaId($id);
