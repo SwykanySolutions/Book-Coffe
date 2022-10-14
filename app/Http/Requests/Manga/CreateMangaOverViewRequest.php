@@ -28,7 +28,7 @@ class CreateMangaOverViewRequest extends FormRequest
             "alternative_name" => "string",
             "photo" => "image",
             "background_photo" => "image",
-            "synopsis" => "string|max:500|min:20",
+            "synopsis" => "string|max:1000|min:20",
             "categories" => "required|array",
             "staffs" => "required|array",
             "format" => "required|string",
