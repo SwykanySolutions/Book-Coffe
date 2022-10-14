@@ -24,11 +24,11 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:32|min:2|string|unique:App\Models\User,name|alpha_dash',
+            'name' => 'max:32|min:2|string|alpha_dash',
             'tag' => 'min:4|max:4|string|regex:/^[0-9]+$/u',
             'about' => 'max:280|string',
-            'profile_photo' => 'image',
-            'background_photo' => 'image'
+            'profile_photo' => 'image|mimes:jpg,jpeg,png,gif',
+            'background_photo' => 'image|mimes:jpg,jpeg,png,gif'
         ];
     }
 }
