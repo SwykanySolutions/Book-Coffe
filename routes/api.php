@@ -11,7 +11,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SliderController;
-use \App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,6 +74,8 @@ Route::controller(MangaOverViewController::class)->prefix('/manga')->name('manga
     Route::get('/ids', 'indexIds')->name('index.ids');
     Route::post('/', 'store')->name('store');
     Route::get('/{id}', 'show')->name('show');
+    Route::delete('/{id}', 'destroy')->name('destroy');
+    Route::get('/view/{id}', 'newView');
 });
 
 Route::controller(ScoreController::class)->prefix('/manga')->name('manga.')->group(function () {
