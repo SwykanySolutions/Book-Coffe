@@ -31,12 +31,12 @@ class SearchRepository implements SearchRepositoryInterface
 
     public function searchManga(string $name)
     {
-        return $this->mangaOverView->search($name)->get();
+        return $this->mangaOverView->search($name)->take(10)->get();
     }
 
     public function searchUser(string $name)
     {
-        return $this->user->search($name)->get();
+        return $this->user->search($name)->take(10)->get();
     }
 
     public function searchCategory(string $name)
