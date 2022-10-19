@@ -21,13 +21,13 @@ class MangaChapterRepository implements MangaChapterRepositoryInterface
 
     public function getAllChapeterbyMangaId(int $id)
     {
-        $chapterManga = $this->chapterManga->where('manga_over_view_id', '=', $id);
+        $chapterManga = $this->chapterManga->where('manga_over_view_id', '=', $id)->orderBy('chapter', 'DESC');
         return $chapterManga->paginate(10);
     }
 
     public function getAllChapeterbyMangaIdNoPaginate(int $id)
     {
-        return $this->chapterManga->where('manga_over_view_id', '=', $id)->get();
+        return $this->chapterManga->where('manga_over_view_id', '=', $id)->orderBy('chapter', 'DESC')->get();
     }
 
     public function getAllChapeterIds()
