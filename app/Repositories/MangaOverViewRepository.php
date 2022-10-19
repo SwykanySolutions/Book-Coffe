@@ -49,4 +49,10 @@ class MangaOverViewRepository implements MangaOverViewRepositoryInterface
         return $manga;
     }
 
+    public function deleteMangabyId(int $id)
+    {
+        $manga = $this->manga->find($id);
+        $manga->delete();
+    }
+
 }

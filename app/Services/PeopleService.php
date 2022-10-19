@@ -49,8 +49,9 @@ class PeopleService
         }
         $infos = $request->all();
         if ($photo = $request->file('photo')) {
-            if (Storage::disk('public')->exists($people->photo)) {
-                Storage::disk('public')->delete($people->photo);
+            $photoPath = str_replace("storage/", "", $people->photo);
+            if (Storage::disk('public')->exists($photoPath)) {
+                Storage::disk('public')->delete($photoPath);
             }
             $infos['photo'] = $photo->store('people_photo', 'public');
         }
@@ -60,20 +61,16 @@ class PeopleService
 
     public function deletePeople(int $id)
     {
-        $user = auth()->user();
-        if ($user->delete_people || $user->owner) {
-            $people = $this->peopleRepository->getPeoplebyId($id);
-            if (!$people) {
-                return abort(404);
-            }
-
-            if (Storage::disk('public')->exists($people->photo)) {
-                Storage::disk('public')->delete($people->photo);
-            }
-            $this->peopleRepository->deletePeople($people);
-        } else {
-            return abort(403, 'Unauthorized action.');
+        $people = $this->peopleRepository->getPeoplebyId($id);
+        if (!$people) {
+            return abort(404);
         }
+
+        $photoPath = str_replace("storage/", "", $people->photo);
+        if (Storage::disk('public')->exists($photoPath)) {
+            Storage::disk('public')->delete($photoPath);
+        }
+        $this->peopleRepository->deletePeople($people);
     }
 
 }

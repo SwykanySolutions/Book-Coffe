@@ -63,20 +63,18 @@ class MangaChapterService
 
     public function deleteChapter(int $id)
     {
-        $user = auth()->user();
-        if ($user->delete_manga_chapter || $user->owner) {
-            $chapterManga = $this->getChapterPages($id);
-            if (!$chapterManga) {
-                return abort(404);
-            }
-
-            foreach ($chapterManga->manga_pages as $pages) {
-                if (Storage::disk('public')->exists($pages->page)) {
-                    Storage::disk('public')->delete($pages->page);
-                }
-            }
-            $this->mangaChapterRepository->deleteChapter($chapterManga);
+        $chapterManga = $this->getChapterPages($id);
+        if (!$chapterManga) {
+            return abort(404);
         }
+
+        foreach ($chapterManga->manga_pages as $pages) {
+            $pagePath = str_replace("storage/", "", $pages->page);
+            if (Storage::disk('public')->exists($pagePath)) {
+                Storage::disk('public')->delete($pagePath);
+            }
+        }
+        $this->mangaChapterRepository->deleteChapter($chapterManga);
     }
 
 }

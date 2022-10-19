@@ -31,8 +31,18 @@ class MangaOverViewController extends Controller
         return $this->mangaOverViewService->createManga($request);
     }
 
+    public function newView(int $id)
+    {
+        $this->mangaOverViewService->setMangaViews($id);
+    }
+
     public function show($id)
     {
         return $this->mangaOverViewService->getMangabyId($id);
+    }
+
+    public  function destroy(int $id)
+    {
+        $this->mangaOverViewService->deleteManga($id);
     }
 }

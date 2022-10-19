@@ -12,12 +12,12 @@ class Slider extends Model
 
     public function getBackgroundPhotoAttribute()
     {
-        return asset("storage/" . $this->attributes['background_photo']);
+        return "storage/" . $this->attributes['background_photo'];
     }
 
     public function getTitlePhotoAttribute()
     {
-        return asset("storage/" . $this->attributes['title_photo']);
+        return "storage/" . $this->attributes['title_photo'];
     }
 
     public function manga_over_views()

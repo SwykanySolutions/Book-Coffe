@@ -8,4 +8,5 @@ interface MangaOverViewRepositoryInterface
     public function getAllMangaIds();
     public function createManga(array $request, int $status, int $format, array $categories, array $staffs);
     public function getMangabyId(int $id);
+    public function deleteMangabyId(int $id);
 }
