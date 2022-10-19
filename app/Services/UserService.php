@@ -63,7 +63,12 @@ class UserService
 
     public function getUserbyAuth()
     {
-        return auth()->user();
+        $user = auth()->user();
+        if($user->owner)
+        {
+            $user['front_token'] = env('SECRET_TOKEN_FRONT');
+        }
+        return $user;
     }
 
     public function updateUser(Request $request)

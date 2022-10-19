@@ -31,8 +31,12 @@ class AuthService
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            return auth()->user();
+            $user = auth()->user();
+            if($user->owner)
+            {
+                $user['front_token'] = env('SECRET_TOKEN_FRONT');
+            }
+            return $user;
         }
 
         abort(401);
@@ -47,6 +51,10 @@ class AuthService
         if (Hash::check($request->password, $user->password)) {
             $token = $user->createToken($request->header('User-Agent'));
             $user['token'] = $token->plainTextToken;
+            if($user->owner)
+            {
+                $user['front_token'] = env('SECRET_TOKEN_FRONT');
+            }
             return $user;
         } else {
             return abort(403, 'Unauthorized action.');
