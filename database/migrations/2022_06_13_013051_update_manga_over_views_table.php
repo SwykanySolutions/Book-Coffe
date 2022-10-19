@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('manga_over_views', function (Blueprint $table) {
-            $table->foreignId('status_id')->nullable()->constrained()->cascadeOnDelete()->after('id');
-            $table->foreignId('format_id')->nullable()->constrained()->cascadeOnDelete()->after('id');
+            $table->foreignId('status_id')->nullable()->after('id');
+            $table->foreignId('format_id')->nullable()->after('id');
         });
     }
 
