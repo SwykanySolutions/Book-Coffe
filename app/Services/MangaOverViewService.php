@@ -46,8 +46,10 @@ class MangaOverViewService
                 $score = $score / count($scores);
             }
             $manga->score = $score;
-            $manga->format = $this->format->getFormatbyId($manga->format_id);
-            $manga->status = $this->status->getStatusbyId($manga->status_id);
+            $format = $this->format->getFormatbyId($manga->format_id);
+            $status = $this->status->getStatusbyId($manga->status_id);
+            $manga->format = !$format ? ['name' => 'Desconhecido'] : $format;
+            $manga->status = !$status ? ['name' => 'Desconhecido'] : $status;
             unset($manga->format_id);
             unset($manga->status_id);
             return $manga;
