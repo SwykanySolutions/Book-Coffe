@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\AuthUserRequest;
 use App\Services\AuthService;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -12,7 +13,7 @@ class AuthController extends Controller
     public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
-        $this->middleware('auth:sanctum')->only('index', 'destroy_all', 'destroy');
+        $this->middleware('auth:sanctum')->only('index', 'destroyCurrent' , 'destroy_all', 'destroy');
     }
 
     public function index()
@@ -28,6 +29,16 @@ class AuthController extends Controller
     public function store(AuthUserRequest $request)
     {
         return $this->authService->login($request);
+    }
+
+    public function destroyCurrentSession(Request $request)
+    {
+        $this->authService->logoutSession($request);
+    }
+
+    public function destroyCurrent(Request $request)
+    {
+        $this->authService->logOutCurrent($request);
     }
 
     public function destroy($id)
