@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::controller(AuthController::class)->prefix('/auth')->group(function () {
-    Route::get('/', 'index');
+    //Route::get('/', 'index');
     Route::post('/', 'store');
-    Route::delete('/', 'destroy_all');
-    Route::delete('/{id}', 'destroy');
+    //Route::delete('/', 'destroy_all');
+    Route::delete('/current', 'destroyCurrentSession');
+    //Route::delete('/{id}', 'destroy');
 });
 
 Route::get('/documentation', function () {
