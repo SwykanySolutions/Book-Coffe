@@ -61,9 +61,19 @@ class AuthService
         }
     }
 
+    public function logOutCurrent(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+    }
+
     public function logOut(int $id)
     {
         auth()->user()->tokens()->where('id', $id)->delete();
+    }
+
+    public function logoutSession(Request $request)
+    {
+        $request->session()->invalidate();
     }
 
     public function logOutAll()
