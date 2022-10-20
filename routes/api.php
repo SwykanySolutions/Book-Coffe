@@ -39,6 +39,7 @@ Route::controller(AuthController::class)->prefix('/auth/token')->group(function 
     Route::get('/', 'index');
     Route::post('/', 'storeToken');
     Route::delete('/', 'destroy_all');
+    Route::delete('/current', 'destroyCurrent');
     Route::delete('/{id}', 'destroy');
 });
 
