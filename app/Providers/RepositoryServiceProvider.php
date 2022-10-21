@@ -15,6 +15,7 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\SliderRepositoryInterface;
 use App\Repositories\Contracts\RoleRepositoryInterface;
 use App\Repositories\Contracts\ResourceRepositoryInterface;
+use App\Repositories\Contracts\AuditRepositoryInterface;
 use App\Repositories\FormatRepository;
 use App\Repositories\MangaChapterRepository;
 use App\Repositories\MangaOverViewRepository;
@@ -26,6 +27,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\SliderRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\ResourceRepository;
+use App\Repositories\AuditRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -95,6 +97,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ResourceRepositoryInterface::class,
             ResourceRepository::class
+        );
+
+        $this->app->bind(
+            AuditRepositoryInterface::class,
+            AuditRepository::class
         );
     }
 

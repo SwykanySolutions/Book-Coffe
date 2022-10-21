@@ -5,13 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class People extends Model
+class People extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use Searchable;
 
     protected $fillable = ['name', 'photo', 'background_photo','birth', 'gender', 'about', 'twitter', 'facebook', 'instagram', 'anilist', 'myanimelist', 'youtube', 'website'];
+
+    protected $auditInclude = [
+        'photo',
+        'background_photo',
+        'name',
+        'birth',
+        'gender',
+        'about',
+        'twitter',
+        'facebook',
+        'instagram',
+        'anilist',
+        'myanimelist',
+        'youtube',
+        'website',
+    ];
 
     public function getPhotoAttribute()
     {

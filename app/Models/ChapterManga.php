@@ -4,12 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class ChapterManga extends Model
+class ChapterManga extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
     protected $fillable = ['title', 'chapter'];
+
+    protected $auditInclude = [
+        'title',
+        'chapter',
+        'manga_pages',
+    ];
 
     public function getTitleAttribute()
     {
