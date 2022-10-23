@@ -56,6 +56,10 @@ Route::controller(\App\Http\Controllers\Admin\UserController::class)->prefix('/a
     Route::post('/role/user/{id}', 'updateRoles')->name('role.user.update');
 });
 
+Route::controller(\App\Http\Controllers\Admin\AuditController::class)->prefix('/admin')->name('admin.')->group(function () {
+    //Route::get('/audit', 'index')->name('audit.index');
+});
+
 Route::controller(PeopleController::class)->prefix('/people')->name('people.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
@@ -74,6 +78,7 @@ Route::controller(MangaOverViewController::class)->prefix('/manga')->name('manga
     Route::get('/', 'index')->name('index');
     Route::get('/ids', 'indexIds')->name('index.ids');
     Route::post('/', 'store')->name('store');
+    Route::post('/{id}', 'update')->name('update');
     Route::get('/{id}', 'show')->name('show');
     Route::delete('/{id}', 'destroy')->name('destroy');
     Route::get('/view/{id}', 'newView');

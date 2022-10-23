@@ -95,6 +95,32 @@ class MangaOverViewService
         return $this->manga->getMangabyId($manga->id);
     }
 
+    public function updateManga(Request $request, int $id)
+    {
+        $infos = $request->all();
+        $manga = $this->manga->getMangabyId($id);
+        if ($photo = $request->file('photo')) {
+            $photoPath = str_replace("storage/", "", $manga->photo);
+            if (Storage::disk('public')->exists($photoPath)) {
+                Storage::disk('public')->delete($photoPath);
+            }
+            $infos['photo'] = $photo->store('manga_photo', 'public');
+        }
+
+        if ($photo = $request->file('background_photo')) {
+            $photoPath = str_replace("storage/", "", $manga->background_photo);
+            if (Storage::disk('public')->exists($photoPath)) {
+                Storage::disk('public')->delete($photoPath);
+            }
+            $infos['photo'] = $photo->store('background_photo', 'public');
+        }
+
+        unset($infos["status"]);
+        unset($infos["format"]);
+        $manga = $this->manga->updateManga($infos, $request->status, $request->format, $request->categories, $request->staffs);
+        return $this->manga->getMangabyId($manga->id);
+    }
+
     public function deleteManga(int $id)
     {
         $chapters = $this->chapter->getAllChapeterbyMangaId($id);

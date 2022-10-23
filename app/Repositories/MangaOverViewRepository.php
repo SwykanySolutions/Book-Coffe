@@ -55,4 +55,15 @@ class MangaOverViewRepository implements MangaOverViewRepositoryInterface
         $manga->delete();
     }
 
+    public function updateManga(array $request, int $status, int $format, array $categories, array $staffs, int $id)
+    {
+        $manga = $this->manga->find($id);
+        $manga->update($request);
+        $manga->categories()->attach(array_map('intval', $categories));
+        $manga->people()->attach(array_map('intval', $staffs));
+        $manga->status_id = $status;
+        $manga->format_id = $format;
+        $manga->save();
+        return $manga;
+    }
 }

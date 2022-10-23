@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Manga\CreateMangaOverViewRequest;
+use App\Http\Requests\UpdateMangaOverViewRequest;
 use App\Services\MangaOverViewService;
 
 class MangaOverViewController extends Controller
@@ -29,6 +30,11 @@ class MangaOverViewController extends Controller
     public function store(CreateMangaOverViewRequest $request)
     {
         return $this->mangaOverViewService->createManga($request);
+    }
+
+    public function update(UpdateMangaOverViewRequest $request, int $id)
+    {
+        return $this->mangaOverViewService->updateManga($request, $id);
     }
 
     public function newView(int $id)
