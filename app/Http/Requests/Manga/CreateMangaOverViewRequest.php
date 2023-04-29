@@ -24,7 +24,7 @@ class CreateMangaOverViewRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string|max:32|min:2|unique:App\Models\MangaOverView,name",
+            "name" => "required|string|max:100|min:2|unique:App\Models\MangaOverView,name",
             "alternative_name" => "string",
             "photo" => "image",
             "background_photo" => "image",
