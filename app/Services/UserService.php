@@ -78,17 +78,17 @@ class UserService
         $infos = $request->all();
         if ($profile_photo = $request->file('profile_photo')) {
             $image = str_replace('storage/', '', $user->profile_photo);
-            if (Storage::disk('public')->exists($image)) {
-                Storage::disk('public')->delete($image);
+            if (Storage::disk('s3')->exists($image)) {
+                Storage::disk('s3')->delete($image);
             }
-            $infos['profile_photo'] = $profile_photo->store('profiles_photos', 'public');
+            $infos['profile_photo'] = $profile_photo->store('profiles_photos', 's3');
         }
         if ($background_photo = $request->file('background_photo')) {
             $image = str_replace('storage/', '', $user->background_photo);
-            if (Storage::disk('public')->exists($image)) {
-                Storage::disk('public')->delete($image);
+            if (Storage::disk('s3')->exists($image)) {
+                Storage::disk('s3')->delete($image);
             }
-            $infos['background_photo'] = $background_photo->store('backgrounds_photos', 'public');
+            $infos['background_photo'] = $background_photo->store('backgrounds_photos', 's3');
         }
         if ($name = $request->name) {
             $user_name = $name . '#' . explode('#', $user_name)[1];

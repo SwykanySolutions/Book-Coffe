@@ -82,11 +82,11 @@ class MangaOverViewService
     {
         $infos = $request->all();
         if ($photo = $request->file('photo')) {
-            $infos['photo'] = $photo->store('manga_photo', 'public');
+            $infos['photo'] = $photo->store('manga_photo', 's3');
         }
 
         if ($photo = $request->file('background_photo')) {
-            $infos['background_photo'] = $photo->store('manga_background_photo', 'public');
+            $infos['background_photo'] = $photo->store('manga_background_photo', 's3');
         }
 
         unset($infos["status"]);
@@ -101,18 +101,18 @@ class MangaOverViewService
         $manga = $this->manga->getMangabyId($id);
         if ($photo = $request->file('photo')) {
             $photoPath = str_replace("storage/", "", $manga->photo);
-            if (Storage::disk('public')->exists($photoPath)) {
-                Storage::disk('public')->delete($photoPath);
+            if (Storage::disk('s3')->exists($photoPath)) {
+                Storage::disk('s3')->delete($photoPath);
             }
-            $infos['photo'] = $photo->store('manga_photo', 'public');
+            $infos['photo'] = $photo->store('manga_photo', 's3');
         }
 
         if ($photo = $request->file('background_photo')) {
             $photoPath = str_replace("storage/", "", $manga->background_photo);
-            if (Storage::disk('public')->exists($photoPath)) {
-                Storage::disk('public')->delete($photoPath);
+            if (Storage::disk('s3')->exists($photoPath)) {
+                Storage::disk('s3')->delete($photoPath);
             }
-            $infos['photo'] = $photo->store('background_photo', 'public');
+            $infos['photo'] = $photo->store('background_photo', 's3');
         }
 
         unset($infos["status"]);
@@ -131,19 +131,19 @@ class MangaOverViewService
 
             foreach ($chapterManga->manga_pages as $pages) {
                 $pagePath = str_replace("storage/", "", $pages->page);
-                if (Storage::disk('public')->exists($pagePath)) {
-                    Storage::disk('public')->delete($pagePath);
+                if (Storage::disk('s3')->exists($pagePath)) {
+                    Storage::disk('s3')->delete($pagePath);
                 }
             }
             $this->chapter->deleteChapter($chapter);
         }
         $photoPath = str_replace("storage/", "", $manga->photo);
-        if (Storage::disk('public')->exists($photoPath)) {
-            Storage::disk('public')->delete($photoPath);
+        if (Storage::disk('s3')->exists($photoPath)) {
+            Storage::disk('s3')->delete($photoPath);
         }
         $backgroundPath = str_replace("storage/", "", $manga->background_photo);
-        if (Storage::disk('public')->exists($backgroundPath)) {
-            Storage::disk('public')->delete($backgroundPath);
+        if (Storage::disk('s3')->exists($backgroundPath)) {
+            Storage::disk('s3')->delete($backgroundPath);
         }
         $this->manga->deleteMangabyId($id);
     }

@@ -55,7 +55,7 @@ class MangaChapterService
             $image_info = getimagesize($pages);
             $width = $image_info[0];
             $height = $image_info[1];
-            $uploadedPages[] = ['page' => $pages->store('chapters/pages/' . $chapter->id, 'public'), 'chapter_manga_id' => $chapter->id, 'created_at' => date('Y-m-d h:i:s'), 'updated_at' => date('Y-m-d h:i:s'), 'width' => $width, 'height' => $height];
+            $uploadedPages[] = ['page' => $pages->store('chapters/pages/' . $chapter->id, 's3'), 'chapter_manga_id' => $chapter->id, 'created_at' => date('Y-m-d h:i:s'), 'updated_at' => date('Y-m-d h:i:s'), 'width' => $width, 'height' => $height];
         }
         $this->mangaChapterRepository->CreatePages($uploadedPages);
         return $this->mangaChapterRepository->getChapterPages($chapter->id);
@@ -70,8 +70,8 @@ class MangaChapterService
 
         foreach ($chapterManga->manga_pages as $pages) {
             $pagePath = str_replace("storage/", "", $pages->page);
-            if (Storage::disk('public')->exists($pagePath)) {
-                Storage::disk('public')->delete($pagePath);
+            if (Storage::disk('s3')->exists($pagePath)) {
+                Storage::disk('s3')->delete($pagePath);
             }
         }
         $this->mangaChapterRepository->deleteChapter($chapterManga);
