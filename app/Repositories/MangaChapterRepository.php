@@ -27,7 +27,7 @@ class MangaChapterRepository implements MangaChapterRepositoryInterface
 
     public function getAllChapeterbyMangaIdNoPaginate(int $id)
     {
-        return $this->chapterManga->where('manga_over_view_id', '=', $id)->orderBy('chapter', 'DESC')->get();
+        return $this->chapterManga->where('manga_over_view_id', '=', $id)->orderByRaw('CAST(chapter AS DOUBLE PRECISION) DESC')->get();
     }
 
     public function getAllChapeterIds()
