@@ -89,6 +89,6 @@ ARG PUSHER_APP_CLUSTER=${PUSHER_APP_CLUSTER}
 
 # Start app
 EXPOSE 80
-COPY ./.deploy/entrypoint.sh /
+COPY ./entrypoint.sh /
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
