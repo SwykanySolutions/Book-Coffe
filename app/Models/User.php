@@ -12,25 +12,25 @@ use Laravel\Scout\Searchable;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use Searchable;
+    //use Searchable;
 
     protected $fillable = ['name', 'email', 'password', 'profile_photo', 'background_photo', 'about', 'balance', 'exp'];
 
     protected $hidden = ['password', 'email'];
 
-    public function searchableAs()
-    {
-        return 'id';
-    }
+    // public function searchableAs()
+    // {
+    //     return 'id';
+    // }
 
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
+    // public function toSearchableArray()
+    // {
+    //     $array = $this->toArray();
 
-        $array['name'] = $this->name;
+    //     $array['name'] = $this->name;
 
-        return $array;
-    }
+    //     return $array;
+    // }
 
     public function getAboutAttribute()
     {
