@@ -27,7 +27,7 @@ class CreateMangaChapterRequest extends FormRequest
             "title" => "string",
             "chapter" => "required|numeric",
             "pages" => "required|array|max:500",
-            "pages.*" => "image|mimes:jpg,jpeg,png,gif",
+            "pages.*" => "image|mimes:jpg,jpeg,png,gif,webp",
             "manga_id" => "required|numeric",
         ];
     }
