@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
             $resources = \App\Models\Resource::all();
 
             Gate::before(function ($user){
-                return $user->owner;
+                if($user->owner) return True;
             });
 
             foreach ($resources as $resource) {
