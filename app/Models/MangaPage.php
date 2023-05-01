@@ -13,7 +13,7 @@ class MangaPage extends Model
 
     public function getPageAttribute()
     {
-        return "storage/" . $this->attributes['page'];
+        return  $this->attributes['page'];
     }
 
     public function chapter_mangas()

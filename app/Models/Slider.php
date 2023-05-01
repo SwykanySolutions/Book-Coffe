@@ -21,12 +21,12 @@ class Slider extends Model implements Auditable
 
     public function getBackgroundPhotoAttribute()
     {
-        return "storage/" . $this->attributes['background_photo'];
+        return $this->attributes['background_photo'];
     }
 
     public function getTitlePhotoAttribute()
     {
-        return "storage/" . $this->attributes['title_photo'];
+        return $this->attributes['title_photo'];
     }
 
     public function manga_over_views()

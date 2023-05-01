@@ -27,12 +27,12 @@ class MangaOverView extends Model implements Auditable
 
     public function getPhotoAttribute()
     {
-        return !$this->attributes['photo'] ? "imgs/cover.jpg" : "storage/" . $this->attributes['photo'];
+        return !$this->attributes['photo'] ? "imgs/cover.jpg" :  $this->attributes['photo'];
     }
 
     public function getBackgroundPhotoAttribute()
     {
-        return !$this->attributes['background_photo'] ? "imgs/background_profile.jpg" : "storage/" . $this->attributes['background_photo'];
+        return !$this->attributes['background_photo'] ? "imgs/background_profile.jpg" :  $this->attributes['background_photo'];
     }
 
     public function getSynopsisAttribute()

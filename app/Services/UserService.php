@@ -77,14 +77,14 @@ class UserService
         $user_name = $user->name;
         $infos = $request->all();
         if ($profile_photo = $request->file('profile_photo')) {
-            $image = str_replace('storage/', '', $user->profile_photo);
+            $image = $user->profile_photo;
             if (Storage::disk('s3')->exists($image)) {
                 Storage::disk('s3')->delete($image);
             }
             $infos['profile_photo'] = $profile_photo->store('profiles_photos', 's3');
         }
         if ($background_photo = $request->file('background_photo')) {
-            $image = str_replace('storage/', '', $user->background_photo);
+            $image = $user->background_photo;
             if (Storage::disk('s3')->exists($image)) {
                 Storage::disk('s3')->delete($image);
             }
