@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Manga\CreateMangaOverViewRequest;
 use App\Http\Requests\UpdateMangaOverViewRequest;
 use App\Services\MangaOverViewService;
+use Illuminate\Http\Request;
 
 class MangaOverViewController extends Controller
 {
@@ -17,9 +18,11 @@ class MangaOverViewController extends Controller
         $this->middleware(['auth:sanctum', 'access.control'])->only('store', 'update', 'destroy');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->mangaOverViewService->getAllManga();
+        $order = $request->query('order');
+        $order = $order == null ? 'DESC' : $order;
+        return $this->mangaOverViewService->getAllManga($order);
     }
 
     public function indexIds()

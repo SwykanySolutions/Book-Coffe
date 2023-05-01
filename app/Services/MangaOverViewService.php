@@ -68,9 +68,9 @@ class MangaOverViewService
         }
     }
 
-    public function getAllManga()
+    public function getAllManga($order)
     {
-        return $this->manga->getAllManga();
+        return $this->manga->getAllManga($order);
     }
 
     public function getAllMangaIds()
