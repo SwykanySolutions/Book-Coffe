@@ -24,7 +24,7 @@ class MangaOverViewRepository implements MangaOverViewRepositoryInterface
 
     public function getAllManga(string $order)
     {
-        return $this->manga->orderBy('created_at', $order)->paginate(10);
+        return $this->manga->orderBy('created_at', $order)->paginate(20);
     }
 
     public function getAllMangaIds()
