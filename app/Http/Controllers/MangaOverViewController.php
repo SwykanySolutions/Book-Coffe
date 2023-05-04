@@ -22,7 +22,9 @@ class MangaOverViewController extends Controller
     {
         $order = $request->query('order');
         $order = $order == null ? 'DESC' : $order;
-        return $this->mangaOverViewService->getAllManga($order);
+        $per_page = $request->query('per_page');
+        $per_page = $per_page == null ? 20 : ($per_page > 60 ? 20 : $per_page);
+        return $this->mangaOverViewService->getAllManga($order, $per_page);
     }
 
     public function indexIds()

@@ -25,7 +25,7 @@ class PeopleService
     {
         $infos = $request->all();
         if ($photo = $request->file('photo')) {
-            $infos['photo'] = $photo->store('people_photo', 's3');
+            $infos['photo'] = $photo->store('people_photo');
         }
 
         $people = $this->peopleRepository->createPeople($infos);
@@ -49,11 +49,13 @@ class PeopleService
         }
         $infos = $request->all();
         if ($photo = $request->file('photo')) {
-            $photoPath = str_replace("storage/", "", $people->photo);
-            if (Storage::disk('s3')->exists($photoPath)) {
-                Storage::disk('s3')->delete($photoPath);
+            $photoPath = $people->photo;
+            if (str_contains($photoPath, 'imgs/') == false) {
+                if (Storage::disk()->exists($photoPath)) {
+                    Storage::disk()->delete($photoPath);
+                }
             }
-            $infos['photo'] = $photo->store('people_photo', 's3');
+            $infos['photo'] = $photo->store('people_photo');
         }
         $this->peopleRepository->updatePeople($people, $infos);
         return $this->peopleRepository->getPeoplebyId($id);
@@ -66,9 +68,11 @@ class PeopleService
             return abort(404);
         }
 
-        $photoPath = str_replace("storage/", "", $people->photo);
-        if (Storage::disk('s3')->exists($photoPath)) {
-            Storage::disk('s3')->delete($photoPath);
+        $photoPath = $people->photo;
+        if (str_contains($photoPath, 'imgs/') == false) {
+            if (Storage::disk()->exists($photoPath)) {
+                Storage::disk()->delete($photoPath);
+            }
         }
         $this->peopleRepository->deletePeople($people);
     }

@@ -22,9 +22,9 @@ class MangaOverViewRepository implements MangaOverViewRepositoryInterface
         $this->status = $status;
     }
 
-    public function getAllManga(string $order)
+    public function getAllManga(string $order, int $per_page)
     {
-        return $this->manga->orderBy('created_at', $order)->paginate(20);
+        return $this->manga->orderBy('created_at', $order)->paginate($per_page);
     }
 
     public function getAllMangaIds()

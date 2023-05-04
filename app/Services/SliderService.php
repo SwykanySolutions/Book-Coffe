@@ -33,10 +33,7 @@ class SliderService
     {
         $infos = $request->all();
         if ($photo = $request->file('background_photo')) {
-            $infos['background_photo'] = $photo->store('slider/background', 's3');
-        }
-        if ($photo = $request->file('title_photo')) {
-            $infos['title_photo'] = $photo->store('slider/title', 's3');
+            $infos['background_photo'] = $photo->store('slider/background');
         }
         return $this->sliderRepository->createSlider($infos);
     }
@@ -49,16 +46,10 @@ class SliderService
         }
         $infos = $request->all();
         if ($photo = $request->file('background_photo')) {
-            if (Storage::disk('s3')->exists($slider->background_photo)) {
-                Storage::disk('s3')->delete($slider->background_photo);
+            if (Storage::disk()->exists($slider->background_photo)) {
+                Storage::disk()->delete($slider->background_photo);
             }
-            $infos['background_photo'] = $photo->store('slider/background', 's3');
-        }
-        if ($photo = $request->file('title_photo')) {
-            if (Storage::disk('s3')->exists($slider->title_photo)) {
-                Storage::disk('s3')->delete($slider->title_photo);
-            }
-            $infos['title_photo'] = $photo->store('slider/title', 's3');
+            $infos['background_photo'] = $photo->store('slider/background');
         }
         $this->sliderRepository->updateSlider($id, $infos);
         return $this->sliderRepository->getSliderbyId($id);
@@ -72,11 +63,8 @@ class SliderService
             if(!$slider){
                 abort(404);
             }
-            if (Storage::disk('s3')->exists($slider->background_photo)) {
-                Storage::disk('s3')->delete($slider->background_photo);
-            }
-            if (Storage::disk('s3')->exists($slider->title_photo)) {
-                Storage::disk('s3')->delete($slider->title_photo);
+            if (Storage::disk()->exists($slider->background_photo)) {
+                Storage::disk()->delete($slider->background_photo);
             }
             return $this->sliderRepository->deleteSlider($id);
         } else {

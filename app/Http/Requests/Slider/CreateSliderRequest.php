@@ -25,7 +25,6 @@ class CreateSliderRequest extends FormRequest
     {
         return [
             'background_photo' => 'required|image|mimes:jpg,jpeg,png,gif',
-            'title_photo' => 'required|image|mimes:png',
             'manga_over_view_id' => 'required|numeric',
         ];
     }

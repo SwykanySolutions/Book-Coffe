@@ -25,7 +25,6 @@ class UpdateSliderRequest extends FormRequest
     {
         return [
             'background_photo' => 'image|mimes:jpg,jpeg,png,gif',
-            'title_photo' => 'image|mimes:png',
             'manga_over_view_id' => 'numeric',
         ];
     }
