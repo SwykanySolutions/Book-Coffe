@@ -92,6 +92,8 @@ class MangaOverViewService
         unset($infos["status"]);
         unset($infos["format"]);
         $manga = $this->manga->createManga($infos, $request->status, $request->format, $request->categories, $request->staffs);
+        $manga->slug = str_replace(' ', '-', $manga->name);
+        $manga->save();
         return $this->manga->getMangabyId($manga->id);
     }
 
@@ -121,7 +123,9 @@ class MangaOverViewService
 
         unset($infos["status"]);
         unset($infos["format"]);
-        $manga = $this->manga->updateManga($infos, $request->status, $request->format, $request->categories, $request->staffs);
+        $manga = $this->manga->updateManga($infos, $request->status, $request->format, $request->categories, $request->staffs, $id);
+        $manga->slug = str_replace(' ', '-', $manga->name);
+        $manga->save();
         return $this->manga->getMangabyId($manga->id);
     }
 
