@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Frame::class);
     }
+
+    public function user_lists()
+    {
+        return $this->belongsToMany(UserList::class);
+    }
 }

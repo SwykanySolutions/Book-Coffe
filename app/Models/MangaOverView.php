@@ -74,4 +74,9 @@ class MangaOverView extends Model implements Auditable
     {
         return $this->hasMany(Score::class);
     }
+
+    public function user_lists()
+    {
+        return $this->belongsToMany(UserList::class);
+    }
 }

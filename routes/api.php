@@ -12,6 +12,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\UserListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,14 @@ Route::controller(UserController::class)->prefix('/user')->group(function () {
     Route::post('/token', 'storeToken');
     Route::post('/update', 'update');
     Route::delete('/', 'destroy');
+});
+
+Route::controller(UserListController::class)->prefix('/user/list')->group(function () {
+    Route::get('/id/{id}', 'index');
+    Route::get('/one/{id}', 'show');
+    Route::post('/', 'store');
+    Route::put('/', 'update');
+    Route::delete('/{id}', 'destroy');
 });
 
 Route::controller(AuthController::class)->prefix('/auth/token')->group(function () {
